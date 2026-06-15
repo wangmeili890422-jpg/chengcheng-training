@@ -1,0 +1,2784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧒 诚诚周训练记录</title>
+<style>
+/* ==========================================
+   Microsoft Fluent Design 风格
+   ========================================== */
+:root {
+  --accent: #0078d4;
+  --accent-light: #60cdff;
+  --accent-dark: #005a9e;
+  --bg: #f3f3f3;
+  --surface: rgba(255,255,255,0.7);
+  --surface-solid: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #616161;
+  --text-tertiary: #8a8a8a;
+  --border: rgba(0,0,0,0.0588);
+  --border-strong: rgba(0,0,0,0.12);
+  --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-hover: 0 4px 16px rgba(0,0,0,0.12);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 背景装饰 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, #e8f4fd 0%, #f3f3f3 30%, #f0e6f6 70%, #f3f3f3 100%);
+  z-index: -1;
+}
+
+/* ========== 顶部导航 ========== */
+.navbar {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-brand span { font-size: 22px; }
+
+.navbar-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ========== 按钮 ========== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-solid);
+  border-radius: var(--radius);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition);
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.btn:hover {
+  background: rgba(0,0,0,0.03);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.btn-accent:hover {
+  background: var(--accent-dark);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-sm { padding: 5px 10px; font-size: 12px; }
+
+/* ========== 主布局 ========== */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 20px;
+}
+
+/* ========== 周切换 ========== */
+.week-tabs {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.week-tab {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.week-tab:hover { background: rgba(0,120,212,0.08); color: var(--accent); }
+.week-tab.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+/* ========== 卡片 ========== */
+.card {
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: all var(--transition);
+}
+
+.card:hover { box-shadow: var(--shadow-hover); }
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ========== 统计表格 ========== */
+.stat-table-wrapper {
+  overflow-x: visible;
+  width: 100%;
+}
+
+.stat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  table-layout: auto;
+}
+
+.stat-table th, .stat-table td {
+  padding: 4px 6px;
+  text-align: center;
+  border: 1px solid var(--border);
+  white-space: normal;
+  overflow: hidden;
+}
+
+.stat-table th {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 11px;
+  position: sticky;
+  top: 0;
+  line-height: 1.3;
+}
+
+.stat-table th.sub-header {
+  background: var(--accent-light);
+  color: #1a1a1a;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.stat-table td.date-cell {
+  background: rgba(0,120,212,0.06);
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.stat-table td.content-cell {
+  text-align: left;
+  white-space: pre-line;
+  line-height: 1.4;
+  font-size: 11px;
+  word-break: break-all;
+}
+
+.stat-table td.content-cell.has-data {
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+.stat-table td.time-cell {
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 11px;
+}
+
+.stat-table td.time-cell.has-data {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.stat-table td.total-cell {
+  background: rgba(0,120,212,0.08);
+  font-weight: 600;
+}
+
+.stat-table td.summary-row {
+  background: rgba(0,120,212,0.06);
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+
+.stat-table td.weekend-row {
+  background: rgba(255,235,59,0.08);
+}
+
+.stat-table td.auto-filled {
+  background: rgba(0,120,212,0.05);
+  position: relative;
+}
+
+/* auto-filled不再显示🤖标记，数据可以自由编辑 */
+
+/* ========== 问题自评区域 ========== */
+.notes-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-strong);
+}
+
+.notes-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.notes-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--surface-solid);
+  resize: none;
+  overflow: hidden;
+  transition: all var(--transition);
+  outline: none;
+}
+
+.notes-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,120,212,0.12);
+}
+
+.notes-textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* 可编辑单元格 */
+.stat-table td.editable {
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.stat-table td.editable:hover {
+  background: rgba(0,120,212,0.12);
+  outline: 2px solid var(--accent-light);
+  outline-offset: -2px;
+}
+
+.stat-table td.editing {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  background: rgba(255,255,255,0.95);
+}
+
+/* ========== 自动填写面板（图片上传版） ========== */
+.auto-fill-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 图片上传区 */
+.image-upload-zone {
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  background: rgba(255,255,255,0.6);
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.image-upload-zone:hover {
+  border-color: var(--accent);
+  background: rgba(0,120,212,0.06);
+}
+
+.image-upload-zone.dragging {
+  border-color: var(--accent);
+  background: rgba(0,120,212,0.12);
+}
+
+.image-upload-zone .upload-icon {
+  font-size: 36px;
+  color: var(--accent);
+}
+
+.image-upload-zone .upload-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.image-upload-zone .upload-hint {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.image-upload-zone.has-image {
+  border-style: solid;
+  border-color: var(--accent);
+  background: rgba(0,120,212,0.04);
+  padding: 12px;
+}
+
+.upload-preview {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: var(--radius);
+  object-fit: contain;
+}
+
+/* OCR进度条 */
+.ocr-progress {
+  display: none;
+  margin-top: 8px;
+}
+
+.ocr-progress.active {
+  display: block;
+}
+
+.ocr-progress-bar {
+  height: 4px;
+  background: var(--border-strong);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ocr-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+.ocr-progress-text {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}
+
+/* 文字粘贴区（备用） */
+.text-paste-section {
+  margin-top: 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.text-paste-toggle {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color var(--transition);
+}
+
+.text-paste-toggle:hover { color: var(--accent); }
+
+.text-paste-area {
+  display: none;
+  margin-top: 8px;
+}
+
+.text-paste-area.visible { display: block; }
+
+.auto-fill-input {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+  background: rgba(255,255,255,0.9);
+  color: var(--text-primary);
+  transition: all var(--transition);
+}
+
+.auto-fill-input:focus {
+  outline: 2px solid var(--accent);
+  border-color: var(--accent);
+}
+
+.auto-fill-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.date-picker {
+  padding: 8px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  background: rgba(255,255,255,0.9);
+}
+
+.parse-result {
+  background: rgba(0,120,212,0.05);
+  border: 1px solid rgba(0,120,212,0.15);
+  border-radius: var(--radius);
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.parse-result .field-label {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.parse-result .preview-content {
+  margin-left: 8px;
+  line-height: 1.6;
+}
+
+.parse-result .preview-item {
+  padding: 2px 0;
+}
+
+.parse-result .preview-time {
+  color: var(--accent);
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+/* ========== 图表区域 ========== */
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.chart-container {
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 20px;
+  padding: 20px;
+  min-height: 280px;
+  box-shadow:
+    0 4px 20px rgba(99,102,241,0.06),
+    0 1px 3px rgba(0,0,0,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-container.pie-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 340px;
+}
+
+.chart-container.pie-chart canvas.chart {
+  max-width: 240px !important;
+  max-height: 240px !important;
+  width: 240px !important;
+  height: 240px !important;
+}
+
+.chart-container:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 32px rgba(99,102,241,0.1),
+    0 2px 6px rgba(0,0,0,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.7);
+}
+
+.chart-container::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #3730a3;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.3px;
+}
+
+.chart-title::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  border-radius: 2px;
+  background: #6366f1;
+}
+
+.chart-summary {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.chart-summary-item {
+  flex: 1;
+  background: rgba(255,255,255,0.6);
+  border-radius: 12px;
+  padding: 10px 14px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(8px);
+}
+
+.chart-summary-item .cs-label {
+  font-size: 11px;
+  color: #6b7280;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.chart-summary-item .cs-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: #4338ca;
+  line-height: 1;
+  font-family: 'Segoe UI Variable', system-ui, sans-serif;
+}
+
+.chart-summary-item .cs-value small {
+  font-size: 11px;
+  font-weight: 500;
+  color: #8b5cf6;
+  margin-left: 2px;
+}
+
+canvas.chart { width: 100% !important; height: 200px !important; }
+
+/* ========== 分享面板 ========== */
+.share-card {
+  text-align: center;
+  padding: 24px;
+}
+
+.share-card .share-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.share-card .share-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+/* ========== Toast通知 ========== */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  box-shadow: var(--shadow-hover);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: toastIn 0.3s ease;
+  max-width: 320px;
+}
+
+.toast.success { border-left: 3px solid #107c10; }
+.toast.warning { border-left: 3px solid #ff8c00; }
+.toast.error { border-left: 3px solid #d13438; }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(100px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ========== 编辑弹窗 ========== */
+.edit-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-modal.active { display: flex; }
+
+.edit-modal-content {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  width: 92%;
+  max-width: 560px;
+  box-shadow: var(--shadow-hover);
+  animation: modalIn 0.2s ease;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.edit-modal-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.edit-field {
+  margin-bottom: 12px;
+}
+
+.edit-field label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.edit-field input, .edit-field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.edit-field textarea#editContentInput {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.7;
+  overflow-y: auto;
+}
+
+.edit-field input:focus, .edit-field textarea:focus {
+  outline: 2px solid var(--accent);
+  border-color: var(--accent);
+}
+
+.edit-modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* ========== 手机端适配 ========== */
+@media (max-width: 768px) {
+  .navbar { padding: 10px 16px; }
+  .navbar-brand { font-size: 16px; }
+  .navbar-actions { gap: 4px; }
+  .btn { padding: 6px 12px; font-size: 12px; }
+  .main-content { padding: 12px 16px; }
+  .card { padding: 16px; }
+  .stat-table { font-size: 10px; }
+  .stat-table th, .stat-table td { padding: 3px 4px; }
+  .stat-table td.content-cell { font-size: 10px; }
+  .stat-table td.date-cell { font-size: 10px; }
+  .stat-table td.time-cell { font-size: 10px; }
+  .week-tabs { padding: 10px 12px; }
+  #weekInfoLabel { display: none; }
+  .chart-grid { grid-template-columns: 1fr; gap: 14px; }
+  .chart-container { padding: 14px; min-height: 260px; }
+  .chart-container.pie-chart { min-height: 300px; }
+  .chart-container.pie-chart canvas.chart { max-width: 200px !important; max-height: 200px !important; width: 200px !important; height: 200px !important; }
+  .chart-container::before { width: 60px; height: 60px; top: -20px; right: -20px; }
+  .chart-summary { gap: 8px; }
+  .chart-summary-item { padding: 8px 10px; }
+  .chart-summary-item .cs-value { font-size: 18px; }
+  .image-upload-zone { min-height: 100px; padding: 16px; }
+}
+
+/* ========== 打印样式 ========== */
+@media print {
+  .navbar, .auto-fill-panel, .share-card, .navbar-actions { display: none; }
+  .card { border: none; box-shadow: none; background: white; }
+  /* auto-filled::after 已移除，不再显示🤖标记 */
+  body::before { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span>🧒</span> 诚诚周训练记录
+  </div>
+  <div class="navbar-actions">
+    <!-- 云同步状态 -->
+    <div id="authStatus" style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-secondary)">
+      <span id="authStatusIcon">☁️</span>
+      <span id="authStatusText" style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+      <button id="authBtn" class="btn btn-sm" onclick="handleAuthBtn()" style="font-size:12px;padding:4px 10px"></button>
+    </div>
+    <button class="btn btn-sm" onclick="exportExcel()">📥 导出Excel</button>
+    <button class="btn btn-sm" onclick="exportJSON()">💾 备份数据</button>
+    <button class="btn btn-sm btn-accent" id="importCloudBtn" onclick="importJSONToCloud()" style="display:none">☁️ 导入并同步云端</button>
+    <button class="btn btn-sm" onclick="undoLastAction()">↩️ 撤销</button>
+    <button class="btn btn-sm" onclick="resetData()">🗑️ 彻底清零</button>
+    <button class="btn btn-sm btn-accent" onclick="addNewWeek()">➕ 新一周</button>
+  </div>
+</nav>
+
+<!-- Toast容器 -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- 登录弹窗 -->
+<div id="loginModal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center">
+  <div style="background:rgba(255,255,255,0.97);border-radius:20px;padding:36px 32px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.2);text-align:center">
+    <div style="font-size:48px;margin-bottom:12px">☁️</div>
+    <h2 style="font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:8px">云端登录</h2>
+    <p style="font-size:13px;color:#666;margin-bottom:24px;line-height:1.6">输入邮箱，我们发送一个登录链接<br>换任何设备都能看到你所有的数据</p>
+    <div id="loginStep1">
+      <input id="loginEmail" type="email" placeholder="输入你的邮箱" 
+        style="width:100%;padding:12px 16px;border:1.5px solid #e0e0e0;border-radius:12px;font-size:15px;outline:none;margin-bottom:12px;font-family:inherit;transition:border-color 0.2s"
+        onfocus="this.style.borderColor='#6366f1'" onblur="this.style.borderColor='#e0e0e0'"
+        onkeydown="if(event.key==='Enter')sendMagicLink()">
+      <button onclick="sendMagicLink()" 
+        style="width:100%;padding:13px;background:linear-gradient(135deg,#6366f1,#818cf8);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity 0.2s"
+        onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
+        发送登录链接
+      </button>
+      <p style="font-size:12px;color:#999;margin-top:12px">首次使用会自动注册账号</p>
+      <button onclick="closeLoginModal()" style="margin-top:8px;background:none;border:none;color:#999;font-size:13px;cursor:pointer">暂不登录，继续使用本地版</button>
+    </div>
+    <div id="loginStep2" style="display:none">
+      <div style="font-size:36px;margin-bottom:12px">📬</div>
+      <p style="font-size:14px;color:#333;line-height:1.7">登录链接已发送到<br><strong id="loginEmailShow"></strong></p>
+      <p style="font-size:12px;color:#999;margin-top:12px">点击邮件中的链接即可登录<br>登录后这个页面会自动刷新</p>
+      <button onclick="closeLoginModal()" style="margin-top:16px;background:none;border:1px solid #e0e0e0;color:#666;font-size:13px;cursor:pointer;padding:8px 20px;border-radius:8px">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- 编辑弹窗 -->
+<div class="edit-modal" id="editModal">
+  <div class="edit-modal-content">
+    <div class="edit-modal-title" id="editModalTitle">编辑单元格</div>
+    <div class="edit-field" id="editContentField">
+      <label>内容</label>
+      <textarea id="editContentInput" placeholder="填写学习内容（可多行编辑）" rows="5"></textarea>
+    </div>
+    <div class="edit-field" id="editTimeField">
+      <label>时长 (分钟)</label>
+      <input type="number" id="editTimeInput" placeholder="0" min="0">
+    </div>
+    <div class="edit-modal-actions">
+      <button class="btn" onclick="closeEditModal()">取消</button>
+      <button class="btn btn-accent" onclick="saveEdit()">✅ 保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 隐藏的文件输入 -->
+<input type="file" id="imageFileInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
+<input type="file" id="jsonFileInput" accept=".json" style="display:none" onchange="handleJSONImport(event)">
+
+<!-- 主内容区 -->
+<div class="main-content">
+
+  <!-- 周切换 + 时间单位 -->
+  <div class="week-tabs" id="weekTabs">
+    <!-- 动态生成 -->
+  </div>
+
+  <!-- 统计表格 -->
+  <div class="card">
+    <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <span>📋 周训练统计表</span>
+      <span id="weekInfoLabel" style="font-size:12px;color:var(--text-secondary);font-weight:400"></span>
+    </div>
+    <div class="stat-table-wrapper">
+      <table class="stat-table" id="statTable">
+        <!-- 动态生成 -->
+      </table>
+    </div>
+    <!-- 问题自评 -->
+    <div class="notes-section" id="notesSection">
+      <div class="notes-label">📝 问题自评</div>
+      <textarea class="notes-textarea" id="notesTextarea" placeholder="这周训练有什么问题或总结？直接在这里写..." oninput="saveNotes()"></textarea>
+    </div>
+  </div>
+
+  <!-- 自动填写（图片上传OCR版） -->
+  <div class="card">
+    <div class="card-title">🤖 自动填写（上传打卡截图识别）</div>
+    <div class="auto-fill-panel">
+      <!-- 图片上传区 -->
+      <div class="image-upload-zone" id="imageUploadZone" onclick="document.getElementById('imageFileInput').click()">
+        <div class="upload-icon">📷</div>
+        <div class="upload-text">点击上传迪爸打卡截图</div>
+        <div class="upload-hint">支持 JPG/PNG 格式，拖拽也可上传</div>
+      </div>
+
+      <!-- OCR进度 -->
+      <div class="ocr-progress" id="ocrProgress">
+        <div class="ocr-progress-bar">
+          <div class="ocr-progress-fill" id="ocrProgressFill"></div>
+        </div>
+        <div class="ocr-progress-text" id="ocrProgressText">正在识别图片文字...</div>
+      </div>
+
+      <!-- 操作栏 -->
+      <div class="auto-fill-actions">
+        <select class="date-picker" id="autoFillDate">
+          <!-- 动态生成 -->
+        </select>
+        <button class="btn btn-accent" id="fillBtn" onclick="fillFromOCR()">🔍 解析并填写</button>
+        <button class="btn" onclick="clearOCRData()">清空</button>
+      </div>
+
+      <!-- 解析结果 -->
+      <div class="parse-result" id="parseResult" style="display:none">
+        <!-- 动态生成 -->
+      </div>
+
+      <!-- 文字粘贴备用区 -->
+      <div class="text-paste-section">
+        <div class="text-paste-toggle" onclick="toggleTextPaste()">
+          📝 手动粘贴文字（备用） ▾
+        </div>
+        <div class="text-paste-area" id="textPasteArea">
+          <textarea class="auto-fill-input" id="autoFillInput" placeholder="在这里粘贴迪爸小程序的打卡文字内容...\n\n支持格式：\n磨眼：数量:5 时长:38分钟\n磨耳：数量:3 时长:297分钟\nmp4 第08集 Building Blocks.mp4 - 10分钟\nmp3 01.Mom.of.a.Croc - 161分钟\n..."></textarea>
+          <button class="btn btn-accent btn-sm" style="margin-top:8px" onclick="parseAndFillFromText()">🔍 从文字解析</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 统计图表 -->
+  <div class="card">
+    <div class="card-title">📊 数据趋势图表</div>
+    <div class="chart-grid">
+      <div class="chart-container">
+        <div class="chart-title">磨眼睛时长趋势</div>
+        <div class="chart-summary" id="eyeSummary"></div>
+        <canvas id="eyeChart" class="chart"></canvas>
+      </div>
+      <div class="chart-container">
+        <div class="chart-title">磨耳朵时长趋势</div>
+        <div class="chart-summary" id="earSummary"></div>
+        <canvas id="earChart" class="chart"></canvas>
+      </div>
+      <div class="chart-container pie-chart">
+        <div class="chart-title">各项目时长占比</div>
+        <canvas id="pieChart" class="chart"></canvas>
+      </div>
+      <div class="chart-container">
+        <div class="chart-title">每日总时长趋势</div>
+        <canvas id="totalChart" class="chart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- 分享面板 -->
+  <div class="card">
+    <div class="card-title">🔗 分享给其他迪爸家长</div>
+    <div class="share-card">
+      <div class="share-icon">👨‍👩‍👧‍👦</div>
+      <div class="share-desc">
+        这个工具可以帮助迪爸英语的家长自动记录每周训练数据。<br>
+        上传打卡截图 → AI自动识别 → 一键填入统计表，省时省力！
+      </div>
+      <button class="btn btn-accent" onclick="shareThisTool()">📤 复制分享链接</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- Tesseract.js CDN（浏览器端OCR） -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<!-- Supabase JS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+// ==========================================
+// Supabase 云端配置
+// ==========================================
+const SUPABASE_URL = 'https://yttypevqafmqplsfwgrr.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_C_A9cWzWu2RVHtltTLENyw_cGN3DsdA';
+// 注意：UMD包把SDK放在 window.supabase 上，用 sbClient 避免与全局变量冲突
+const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null;  // 当前登录用户
+let cloudSyncEnabled = false;  // 云同步是否可用
+
+// 初始化认证状态
+async function initAuth() {
+  try {
+    const { data: { session } } = await sbClient.auth.getSession();
+    if (session?.user) {
+      currentUser = session.user;
+      cloudSyncEnabled = true;
+      updateAuthUI(true);
+      // 登录状态下：从云端加载数据（覆盖本地）
+      await loadFromCloud();
+    } else {
+      updateAuthUI(false);
+    }
+  } catch(e) {
+    console.warn('Supabase 连接失败，使用本地模式', e);
+    updateAuthUI(false);
+  }
+
+  // 监听认证状态变化（比如用户点了邮件链接后自动刷新）
+  sbClient.auth.onAuthStateChange(async (event, session) => {
+    if (event === 'SIGNED_IN' && session?.user) {
+      currentUser = session.user;
+      cloudSyncEnabled = true;
+      updateAuthUI(true);
+      closeLoginModal();
+      await loadFromCloud();
+      render();
+      showToast('✅ 登录成功！数据已同步到云端', 'success');
+    } else if (event === 'SIGNED_OUT') {
+      currentUser = null;
+      cloudSyncEnabled = false;
+      updateAuthUI(false);
+    }
+  });
+}
+
+function updateAuthUI(loggedIn) {
+  const statusText = document.getElementById('authStatusText');
+  const statusIcon = document.getElementById('authStatusIcon');
+  const authBtn = document.getElementById('authBtn');
+  if (!statusText) return;
+
+  const importCloudBtn = document.getElementById('importCloudBtn');
+  if (loggedIn && currentUser) {
+    const email = currentUser.email || '';
+    statusIcon.textContent = '☁️✅';
+    statusText.textContent = email;
+    statusText.title = email;
+    authBtn.textContent = '退出';
+    authBtn.style.color = '#666';
+    // 登录后显示「导入并同步云端」按钮
+    if (importCloudBtn) importCloudBtn.style.display = 'inline-flex';
+  } else {
+    statusIcon.textContent = '☁️';
+    statusText.textContent = '未登录';
+    authBtn.textContent = '登录';
+    authBtn.style.color = '#6366f1';
+    authBtn.style.fontWeight = '600';
+    // 未登录时隐藏该按钮
+    if (importCloudBtn) importCloudBtn.style.display = 'none';
+  }
+}
+
+function handleAuthBtn() {
+  if (cloudSyncEnabled && currentUser) {
+    // 已登录 → 退出
+    if (confirm('确认退出登录？退出后数据将只保存在本地浏览器')) {
+      sbClient.auth.signOut().then(() => {
+        currentUser = null;
+        cloudSyncEnabled = false;
+        updateAuthUI(false);
+        showToast('已退出登录，当前为本地模式', 'info');
+      });
+    }
+  } else {
+    // 未登录 → 打开登录框
+    openLoginModal();
+  }
+}
+
+function openLoginModal() {
+  const modal = document.getElementById('loginModal');
+  modal.style.display = 'flex';
+  document.getElementById('loginStep1').style.display = 'block';
+  document.getElementById('loginStep2').style.display = 'none';
+  setTimeout(() => document.getElementById('loginEmail')?.focus(), 100);
+}
+
+function closeLoginModal() {
+  document.getElementById('loginModal').style.display = 'none';
+}
+
+async function sendMagicLink() {
+  const email = document.getElementById('loginEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    showToast('请输入有效的邮箱地址', 'warning');
+    return;
+  }
+  try {
+    const { error } = await sbClient.auth.signInWithOtp({
+      email,
+      options: { shouldCreateUser: true }
+    });
+    if (error) throw error;
+    document.getElementById('loginEmailShow').textContent = email;
+    document.getElementById('loginStep1').style.display = 'none';
+    document.getElementById('loginStep2').style.display = 'block';
+  } catch(e) {
+    showToast('发送失败：' + (e.message || '请检查网络'), 'error');
+  }
+}
+
+// ==========================================
+// 云端数据读写
+// ==========================================
+
+async function loadFromCloud() {
+  if (!cloudSyncEnabled || !currentUser) return;
+  try {
+    const { data, error } = await sbClient
+      .from('training_data')
+      .select('*')
+      .eq('user_id', currentUser.id)
+      .order('updated_at', { ascending: false })
+      .limit(1);
+
+    if (error) throw error;
+    if (data && data.length > 0) {
+      const cloudData = data[0].content;
+      // 云端数据更新：合并到 appData
+      if (cloudData && cloudData.weeks) {
+        appData = cloudData;
+        // 同步到本地缓存
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+        console.log('✅ 云端数据加载成功');
+        return true;
+      }
+    }
+    // 云端没有数据 → 检查本地是否有数据，有则自动上传（首次迁移）
+    if (appData && appData.weeks && appData.weeks.length > 0) {
+      console.log('☁️ 云端为空，将本地数据上传到云端（首次迁移）...');
+      await saveToCloud(appData);
+      showToast('✅ 本地数据已自动同步到云端！', 'success');
+      console.log('✅ 本地数据迁移到云端完成');
+    }
+  } catch(e) {
+    console.warn('云端加载失败，使用本地数据', e);
+  }
+  return false;
+}
+
+async function saveToCloud(data) {
+  if (!cloudSyncEnabled || !currentUser) return;
+  try {
+    const { error } = await sbClient
+      .from('training_data')
+      .upsert({
+        user_id: currentUser.id,
+        content: data,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'user_id' });
+
+    if (error) throw error;
+    // 更新云同步状态图标（短暂显示已同步）
+    const icon = document.getElementById('authStatusIcon');
+    if (icon) {
+      icon.textContent = '☁️✅';
+      setTimeout(() => { if (cloudSyncEnabled) icon.textContent = '☁️✅'; }, 2000);
+    }
+  } catch(e) {
+    console.warn('云端保存失败', e);
+    const icon = document.getElementById('authStatusIcon');
+    if (icon) icon.textContent = '☁️⚠️';
+  }
+}
+
+// ==========================================
+// 数据模型与存储
+// ==========================================
+
+const STORAGE_KEY = 'chengcheng_training_data';
+// 已废弃的时间单位key（保留以防旧数据残留）
+const TIME_UNIT_KEY_DEPRECATED = 'chengcheng_time_unit';
+
+// 项目定义 —— RT 改为 泛读Quiz
+const PROJECTS = [
+  { id: 'eye', name: '磨眼睛', hasContent: true, hasTime: true },
+  { id: 'ear', name: '磨耳朵', hasContent: true, hasTime: true },
+  { id: 'read', name: '指读', hasContent: true, hasTime: true },
+  { id: 'dessert', name: '甜点', hasContent: true, hasTime: true },
+  { id: 'tutor', name: '外教', hasContent: true, hasTime: false },
+  { id: 'quiz', name: '泛读Quiz', hasContent: true, hasTime: true },
+  { id: 'write', name: '书写练习', hasContent: true, hasTime: true },
+  { id: 'flash', name: '闪卡', hasContent: true, hasTime: true },
+];
+
+const DAY_NAMES = ['周一','周二','周三','周四','周五','周六','周日'];
+
+// 系列名映射
+const SERIES_KEYWORDS = {
+  '动物兄弟': ['Mom of a Croc', 'Whale of a Squid', 'Wild Kratts', 'Aardvark', 'Croc', 'Squid', 'Kratts'],
+  '字母积木': ['Building Blocks', 'Alphablocks', 'Alphablock'],
+  '数字积木': ['Numberblock Rally', 'Numberblock', 'Numberblocks', 'Balloon', 'Now We Are Six', '热气球'],
+  '螺丝钉': ['Electric Kettle', 'Fixies', 'Fixie', '螺丝钉', '电热水壶'],
+  'Gravity Falls': ['Gravity Falls'],
+  'Do You Know': ['Do You Know'],
+  '神奇英语': ['Magic English'],
+  '西游记': ['西游记'],
+};
+
+// OCR识别出的文字缓存
+let ocrTextCache = '';
+
+// ==========================================
+// 时间格式化
+// ==========================================
+
+function formatTime(minutes) {
+  if (minutes === 0) return '';
+  return `${minutes}min`;
+}
+
+function formatTimeShort(minutes) {
+  if (minutes === 0) return '';
+  return minutes;
+}
+
+function getTimeUnitLabel() {
+  return 'min';
+}
+
+// ==========================================
+// 数据管理
+// ==========================================
+
+function getDefaultData() {
+  const week31 = {
+    id: 1,
+    name: '第31周',
+    startDate: '2026-06-08',
+    endDate: '2026-06-14',
+    subtitle: '6月第2周  诚诚周训练记录表  6.8----6.14',
+    days: createEmptyDays('2026-06-08'),
+    notes: '',
+  };
+  // 预填6.11（周四，dayIndex=3）的数据
+  week31.days[3].projects.eye.content = '1.字母积木第8集\n2.数字积木第12集\n3.数字积木第10集\n4.数字积木第6集\n5.螺丝钉第8集';
+  week31.days[3].projects.eye.time = 38;
+  week31.days[3].projects.ear.content = '1.动物兄弟第1集\n2.动物兄弟第2集\n3.Gravity Falls S02E01';
+  week31.days[3].projects.ear.time = 297;
+  week31.days[3].projects.flash.content = '12新63旧';
+  week31.days[3].projects.flash.time = 6;
+  week31.days[3].projects.tutor.content = '外教1节';
+  week31.days[3].autoFilled = true;
+
+  return {
+    weeks: [week31],
+    currentWeekIndex: 0,
+  };
+}
+
+function createEmptyDays(startDateStr) {
+  const start = new Date(startDateStr);
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(start);
+    d.setDate(d.getDate() + i);
+    const month = d.getMonth() + 1;
+    const day = d.getDate();
+    days.push({
+      label: `${DAY_NAMES[i]}${month}.${day}`,
+      dateStr: `${month}.${day}`,
+      fullDate: d.toISOString().slice(0, 10),
+      projects: createEmptyProjects(),
+      autoFilled: false,
+    });
+  }
+  return days;
+}
+
+function createEmptyProjects() {
+  const p = {};
+  PROJECTS.forEach(proj => {
+    p[proj.id] = { content: '', time: 0 };
+  });
+  return p;
+}
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      // 旧数据兼容：rt → quiz
+      const data = JSON.parse(raw);
+      data.weeks.forEach(w => {
+        w.days.forEach(d => {
+          if (d.projects.rt && !d.projects.quiz) {
+            d.projects.quiz = d.projects.rt;
+            delete d.projects.rt;
+          }
+        });
+      });
+      // 合并预填数据：如果某天某项为空，自动填入预填值（不覆盖用户已有数据）
+      const defaultData = getDefaultData();
+      data.weeks.forEach((w, wi) => {
+        const defaultWeek = defaultData.weeks[wi];
+        if (!defaultWeek) return;
+        w.days.forEach((d, di) => {
+          const defaultDay = defaultWeek.days[di];
+          if (!defaultDay) return;
+          PROJECTS.forEach(p => {
+            // 内容为空时填入预填内容
+            if (!d.projects[p.id].content && defaultDay.projects[p.id].content) {
+              d.projects[p.id].content = defaultDay.projects[p.id].content;
+            }
+            // 时长为0时填入预填时长
+            if ((!d.projects[p.id].time || d.projects[p.id].time === 0) && defaultDay.projects[p.id].time > 0) {
+              d.projects[p.id].time = defaultDay.projects[p.id].time;
+            }
+          });
+        });
+      });
+      return data;
+    }
+  } catch(e) { console.error('数据加载失败', e); }
+  return getDefaultData();
+}
+
+const SNAPSHOT_KEY = 'chengcheng_snapshot';
+
+function saveData(data) {
+  try {
+    // 保存快照（用于撤销）
+    const current = localStorage.getItem(STORAGE_KEY);
+    if (current) {
+      localStorage.setItem(SNAPSHOT_KEY, current);
+    }
+    // 本地存储
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    // 云端异步保存（不阻塞UI）
+    saveToCloud(data);
+  } catch(e) {
+    showToast('存储空间不足，请导出备份后清理旧数据', 'error');
+  }
+}
+
+function undoLastAction() {
+  const snapshot = localStorage.getItem(SNAPSHOT_KEY);
+  if (!snapshot) {
+    showToast('没有可撤销的操作', 'warning');
+    return;
+  }
+  try {
+    appData = JSON.parse(snapshot);
+    // 兼容旧数据：rt → quiz
+    if (appData.weeks) {
+      appData.weeks.forEach(w => {
+        w.days.forEach(d => {
+          if (d.projects.rt && !d.projects.quiz) {
+            d.projects.quiz = d.projects.rt;
+            delete d.projects.rt;
+          }
+        });
+      });
+    }
+    saveData(appData);
+    render();
+    showToast('✅ 已恢复到上一次保存的状态', 'success');
+  } catch(e) {
+    showToast('恢复失败，数据可能已损坏', 'error');
+  }
+}
+
+let appData = loadData();
+
+// ==========================================
+// 解析迪爸打卡文字
+// ==========================================
+
+function normalizeOCRText(text) {
+  // OCR识别汉字时经常在每个字之间加空格，例如 "闪 卡 ：总 词 量" → "闪卡：总词量"
+  // 策略：把【汉字/中文符号 + 空格 + 汉字/中文符号】之间的空格去掉
+  let normalized = text;
+  // 连续多次应用，处理 "总 词 量" → "总词量"（三字词需要多次替换）
+  for (let i = 0; i < 5; i++) {
+    normalized = normalized.replace(/([\u4e00-\u9fa5：:：。，、！？【】「」『』（）…—])\s+([\u4e00-\u9fa5：:：。，、！？【】「」『』（）…—])/g, '$1$2');
+  }
+  // 处理汉字和数字/冒号/分号之间的空格，例如 "时 长 :7" → "时长:7", "数 量 :2" → "数量:2"
+  for (let i = 0; i < 3; i++) {
+    normalized = normalized.replace(/([\u4e00-\u9fa5])\s+([：:\d])/g, '$1$2');
+    normalized = normalized.replace(/([：:\d])\s+([\u4e00-\u9fa5])/g, '$1$2');
+  }
+  return normalized;
+}
+
+function parseDibaText(rawText) {
+  // 预处理：修复OCR在汉字间加空格的问题
+  const text = normalizeOCRText(rawText);
+
+  const result = {
+    eye_content: '', eye_time: 0,
+    ear_content: '', ear_time: 0,
+    flash_content: '', flash_time: 0,
+    tutor_content: '',
+    quiz_content: '',
+    extra_notes: [],
+  };
+
+  // ===== 第一阶段：从学习概要提取总时间（最可靠） =====
+  const eyeMatch = text.match(/磨眼[睛眼]?\s*[：:\s]*\d*\s*(?:数量\s*\d+\s*)?(?:时长)?[：:\s]*(\d+)\s*分/)
+    || text.match(/磨眼[睛眼]?\s*[：:\s]*(\d+)\s*分/);
+  if (eyeMatch) result.eye_time = parseInt(eyeMatch[1]);
+
+  const earMatch = text.match(/磨耳[朵]?\s*[：:\s]*\d*\s*(?:数量\s*\d+\s*)?(?:时长)?[：:\s]*(\d+)\s*分/)
+    || text.match(/磨耳[朵]?\s*[：:\s]*(\d+)\s*分/);
+  if (earMatch) result.ear_time = parseInt(earMatch[1]);
+
+  // 闪卡概要提取（提前到第一阶段，优先从学习概要拿数据）
+  // 截图中标准格式：闪卡：总词量:74 新词量:10 旧词量:64 时长:7分钟
+
+  // === 策略A：精确模式匹配（覆盖常见OCR格式） ===
+  const flashPatterns = [
+    // 标准格式：闪卡：总词量:74 新词量:10 旧词量:64 时长:7分钟
+    /闪卡[：:\s]\s*总词量[：:\s]*(\d+)\s*新词量[：:\s]*(\d+)\s*旧词量[：:\s]*(\d+)\s*时长[：:\s]*(\d+)\s*分/,
+    // 冒号变体
+    /闪卡[：:.]\s*总词量[：:.]?(\d+)\s+新词量[：:.]?(\d+)\s+旧词量[：:.]?(\d+)\s+时长[：:.]?(\d+)\s*分/,
+    // 无冒号纯空格分隔
+    /闪卡\s+总词量\s+(\d+)\s+新词量\s+(\d+)\s+旧词量\s+(\d+)\s+时长\s+(\d+)\s*分/,
+    // OCR可能的乱码分隔符
+    /闪卡.*?总词量.?[：:.]?\s*(\d+).{0,5}新词量.?[：:.]?\s*(\d+).{0,5}旧词量.?[：:.]?\s*(\d+).{0,5}时长.?[：:.]?\s*(\d+)\s*分/s,
+    // 宽松通配
+    /闪卡.{0,8}总.{0,4}(\d+).{0,6}新.{0,4}(\d+).{0,6}旧.{0,4}(\d+).{0,6}时.{0,4}(\d+).{0,4}分/s,
+  ];
+
+  for (const pattern of flashPatterns) {
+    const fm = text.match(pattern);
+    if (fm && fm.length >= 5) {
+      result.flash_content = `${fm[2]}新${fm[3]}旧`;
+      result.flash_time = parseInt(fm[4]);
+      break;
+    }
+  }
+
+  // === 策略B：如果精确模式失败，用关键词+数字暴力提取 ===
+  if (result.flash_time === 0 || !result.flash_content) {
+    // 先找到"闪卡"所在的大致区域（前后200字符内应该包含完整数据）
+    const flashRegionIdx = text.indexOf('闪卡');
+    if (flashRegionIdx >= 0) {
+      const region = text.slice(Math.max(0, flashRegionIdx - 5), flashRegionIdx + 120);
+
+      // 提取区域内所有独立的数字（2-3位数）
+      const nums = [...region.matchAll(/\b(\d{1,3})\b/g)].map(m => parseInt(m[1]));
+
+      if (nums.length >= 4) {
+        // 按学习概要语义：总词量(大数) 新词量 旧词量 时长(通常是个位数或两位数)
+        // 尝试找到"时长"后面的数字作为时长
+        const timeAfterDuration = region.match(/时长[：:\s]*(\d+)/);
+        if (timeAfterDuration) {
+          result.flash_time = parseInt(timeAfterDuration[1]);
+          // 剩余数字中找新/旧词量（排除总词量和时长）
+          const remainingNums = nums.filter(n => n !== result.flash_time);
+          if (remainingNums.length >= 2) {
+            // 取最后两个较小的数字作为新旧词量
+            result.flash_content = `${remainingNums[remainingNums.length - 2]}新${remainingNums[remainingNums.length - 1]}旧`;
+          } else if (remainingNums.length >= 1) {
+            result.flash_content = `${remainingNums[0]}词`;
+          }
+        } else if (nums.length >= 4) {
+          // 没找到"时长"关键字，取最后一个数字作为时长（通常最小）
+          result.flash_time = nums[nums.length - 1];
+          result.flash_content = `${nums[nums.length - 3]}新${nums[nums.length - 2]}旧`;
+        }
+
+        // 特殊处理：如果时长看起来不合理（>200），重新分配
+        if (result.flash_time > 200 && nums.length >= 4) {
+          result.flash_time = nums[3]; // 第四个数字通常是时长
+          result.flash_content = `${nums[1]}新${nums[2]}旧`;
+        }
+      } else if (nums.length >= 1 && region.includes('时长')) {
+        // 至少有数字且有"时长"关键字
+        const tMatch = region.match(/时长[^\d]*(\d+)/);
+        if (tMatch) {
+          result.flash_time = parseInt(tMatch[1]);
+          result.flash_content = '已识别';
+        }
+      }
+
+      // 最终保底：只要有"闪卡"+"分" 就尝试拿任意数字
+      if (result.flash_time === 0 && /\d+\s*分/.test(region)) {
+        const anyTime = region.match(/(\d+)\s*分/);
+        if (anyTime) {
+          result.flash_time = parseInt(anyTime[1]);
+          result.flash_content = '(需核对)';
+        }
+      }
+    }
+  }
+
+  // ===== 第二阶段：逐行扫描学习明细，分类提取内容 + 累加时间 =====
+  const lines = text.split(/[\n\r]/);
+  const mp4Items = [];
+  const mp3Items = [];
+  let eyeTimeSum = 0;
+  let earTimeSum = 0;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+
+    // ---- 判断是否为 mp4 行（视频 = 磨眼睛）----
+    let isMp4Line = false;
+    if (/^(?:mp4|\.mp4|MP4)\s*[\s:：.\uff0e\uff1a]/.test(trimmed)
+        || /^mp4/i.test(trimmed.replace(/\s/g, ''))) {
+      isMp4Line = true;
+    }
+
+    if (isMp4Line) {
+      let content = trimmed;
+      content = content.replace(/^(?:mp4|\.mp4|MP4)\s*[\s:：.\uff0e\uff1a]*/i, '');
+      content = content.replace(/\s{1,5}\d+\s*分[钟钟\s]*(min)?$/gi, '');
+      content = content.replace(/[—–~-]+\s*\d+\s*分.*$/gi, '');
+      content = content.trim();
+      if (content) mp4Items.push(content);
+
+      // 提取该行的时间并累加
+      const tMatch = trimmed.match(/(\d+)\s*分[钟钟\s]*(min)?$/);
+      if (tMatch) eyeTimeSum += parseInt(tMatch[1]);
+    }
+
+    // ---- 判断是否为 mp3 行（音频 = 磨耳朵）----
+    else if (/^(?:mp3|\.mp3|MP3)\s*[\s:：.\uff0e\uff1a]/.test(trimmed)
+             || /^mp3/i.test(trimmed.replace(/\s/g, ''))) {
+
+      let content = trimmed;
+      content = content.replace(/^(?:mp3|\.mp3|MP3)\s*[\s:：.\uff0e\uff1a]*/i, '');
+      content = content.replace(/\s{1,5}\d+\s*分[钟钟\s]*(min)?$/gi, '');
+      content = content.replace(/[—–~-]+\s*\d+\s*分.*$/gi, '');
+      content = content.trim();
+      if (content) mp3Items.push(content);
+
+      // 提取该行的时间并累加
+      const tMatch = trimmed.match(/(\d+)\s*分[钟钟\s]*(min)?$/);
+      if (tMatch) earTimeSum += parseInt(tMatch[1]);
+    }
+
+    // 兜底：行内包含 .mp4 关键字
+    else if (/\.\s*mp4\b/i.test(trimmed) && !/\.\s*mp3\b/i.test(trimmed)) {
+      let content = trimmed;
+      content = content.replace(/\.\s*mp4.*$/i, '').trim();
+      content = content.replace(/\s{1,5}\d+\s*分[钟钟]*.*$/gi, '').trim();
+      if (content) mp4Items.push(content);
+      const tMatch = trimmed.match(/(\d+)\s*分[钟钟\s]*(min)?$/);
+      if (tMatch) eyeTimeSum += parseInt(tMatch[1]);
+    }
+    // 兜底：行内包含 .mp3 关键字
+    else if (/\.\s*mp3\b/i.test(trimmed) && !/\.\s*mp4\b/i.test(trimmed)) {
+      let content = trimmed;
+      content = content.replace(/\.\s*mp3.*$/i, '').trim();
+      content = content.replace(/\s{1,5}\d+\s*分[钟钟]*.*$/gi, '').trim();
+      if (content) mp3Items.push(content);
+      const tMatch = trimmed.match(/(\d+)\s*分[钟钟\s]*(min)?$/);
+      if (tMatch) earTimeSum += parseInt(tMatch[1]);
+    }
+  }
+
+  // 如果逐行扫描为空，尝试全局搜索
+  if (mp4Items.length === 0) {
+    const looseMp4 = /(?:^|\n)\s*(.*?)\.(?:mp4)\b/gim;
+    let m;
+    while ((m = looseMp4.exec(text)) !== null) {
+      const c = m[1].trim().replace(/^[\s:：.]+/, '');
+      if (c && c.length > 1) mp4Items.push(c);
+    }
+    const allTimes = [];
+    const timeRegex = /(?:mp4|\.mp4)[^\d]{0,30}(\d+)\s*分/gi;
+    let tm;
+    while ((tm = timeRegex.exec(text)) !== null) allTimes.push(parseInt(tm[1]));
+    if (allTimes.length > 0) eyeTimeSum = allTimes.reduce((a,b)=>a+b, 0);
+  }
+  if (mp3Items.length === 0) {
+    const looseMp3 = /(?:^|\n)\s*(.*?)\.(?:mp3)\b/gim;
+    let m;
+    while ((m = looseMp3.exec(text)) !== null) {
+      const c = m[1].trim().replace(/^[\s:：.]+/, '');
+      if (c && c.length > 1) mp3Items.push(c);
+    }
+    const allTimes = [];
+    const timeRegex = /(?:mp3|\.mp3)[^\d]{0,30}(\d+)\s*分/gi;
+    let tm;
+    while ((tm = timeRegex.exec(text)) !== null) allTimes.push(parseInt(tm[1]));
+    if (allTimes.length > 0) earTimeSum = allTimes.reduce((a,b)=>a+b, 0);
+  }
+
+  // 时间决策：优先用概要值，否则用累加值
+  if (result.eye_time === 0 && eyeTimeSum > 0) result.eye_time = eyeTimeSum;
+  if (result.ear_time === 0 && earTimeSum > 0) result.ear_time = earTimeSum;
+
+  // 格式化内容
+  if (mp4Items.length) result.eye_content = mp4Items.map((item, i) => `${i+1}.${simplifyFilename(item)}`).join('\n');
+  if (mp3Items.length) result.ear_content = mp3Items.map((item, i) => `${i+1}.${simplifyFilename(item)}`).join('\n');
+
+  // ===== 第三阶段：闪卡补充识别（如果第一阶段没拿到）=====
+  if (result.flash_time === 0 || !result.flash_content) {
+    const flashPatterns = [
+      /闪卡[：:.]\s*总词量[：:.]?\s*(\d+)\s*新词量[：:.]?\s*(\d+)\s*旧词量[：:.]?\s*(\d+)\s*时长[：:.]?\s*(\d+)\s*分/,
+      /闪卡.*?(\d+)[词]?\s*(\d+)\s*新\s*(\d+)\s*旧\s*(\d+)\s*分/,
+      /闪卡[：:]?\s*总词量?[：:]?\s*(\d+)\s*新词量?[：:]?\s*(\d+)\s*旧词量?[：:]?\s*(\d+)\s*时长?[：:]?\s*(\d+)\s*分/,
+      /闪卡\s*(\d+)\s*新\s*(\d+)\s*旧/,
+      /闪卡.*?(\d+)\s*新.*?(\d+)\s*旧.*?(\d+)\s*分/,
+      /闪卡.{0,20}(\d+)\s*新.{0,10}(\d+)\s*旧.{0,10}(\d+).{0,10}(\d+)\s*分/,
+      /闪卡.{0,10}(\d+)新(\d+)旧.*?(\d+)\s*分/,
+      /闪卡.{0,5}总.?(\d+).{0,5}新.?(\d+).{0,5}旧.?(\d+).{0,5}时.?(\d+)/,
+    ];
+
+    for (const pattern of flashPatterns) {
+      const fm = text.match(pattern);
+      if (fm) {
+        try {
+          if (fm.length >= 5 && fm[4]) {
+            result.flash_content = `${fm[2]}新${fm[3]}旧`;
+            result.flash_time = parseInt(fm[4]);
+            break;
+          } else if (fm.length >= 4 && fm[3]) {
+            result.flash_content = `${fm[1]}新${fm[2]}旧`;
+            const ft = text.match(/闪卡.*?时长[：:.]?\s*(\d+)\s*分/) || text.match(/闪卡.*?(\d+)\s*分钟/);
+            if (ft) result.flash_time = parseInt(ft[1]);
+            break;
+          } else if (fm.length >= 3 && fm[2]) {
+            result.flash_content = `${fm[1]}新${fm[2]}旧`;
+            const ft = text.match(/闪卡[：:].*?时长[：:.]?\s*(\d+)\s*分/) || text.match(/闪卡.*?(\d+)\s*分钟/);
+            if (ft) result.flash_time = parseInt(ft[1]);
+            break;
+          }
+        } catch(e) { /* 跳过无效模式 */ }
+      }
+    }
+  }
+
+  // 最终兜底：文本中有"闪卡"关键词但仍未解析成功
+  if (result.flash_time === 0 && !result.flash_content && /闪卡/.test(text)) {
+    result.extra_notes.push('⚠️ 检测到"闪卡"关键字但未能自动解析，请手动填写');
+  }
+
+  // ===== 第四阶段：外教 & 泛读Quiz =====
+  const tutorMatch = text.match(/外教\s*(\d+)\s*节/) || text.match(/外教.*?(\d+)\s*节/);
+  if (tutorMatch) result.tutor_content = `外教${tutorMatch[1]}节`;
+
+  const quizMatch = text.match(/(?:复述|泛读|quiz|Quiz)[：:\s]*(.*?)(?:[，,\n]|$)/);
+  if (quizMatch) result.quiz_content = quizMatch[1].trim();
+
+  const readingExtra = text.match(/[泛阅]?读书?\s*籍?\s*[看了]?\s*(\d+)\s*分钟/);
+  if (readingExtra) {
+    result.extra_notes.push(`💡 学习状态提到「阅读${readingExtra[1]}分钟」，请手动填写到泛读Quiz`);
+  }
+
+  return result;
+}
+
+function simplifyFilename(filename) {
+  const episode = extractEpisode(filename);
+  const series = identifySeries(filename);
+  if (episode) {
+    if (episode.startsWith('S')) return `${series} ${episode}`;
+    return `${series}${episode}`;
+  }
+  return series;
+}
+
+function extractEpisode(filename) {
+  let m = filename.match(/第(\d+)集/);
+  if (m) return `第${parseInt(m[1])}集`;
+  m = filename.match(/S(\d+)E(\d+)/);
+  if (m) return `S${parseInt(m[1]).toString().padStart(2,'0')}E${parseInt(m[2]).toString().padStart(2,'0')}`;
+  m = filename.match(/^(\d+)\./);
+  if (m) return `第${parseInt(m[1])}集`;
+  m = filename.match(/^(\d+)\s/);
+  if (m) return `第${parseInt(m[1])}集`;
+  return null;
+}
+
+function identifySeries(filename) {
+  const clean = filename.replace(/\./g, ' ')
+    .replace(/[【\[\(].*?[】\]\)]/g, '')
+    .replace(/\s*\d+\s*分钟.*$/g, '')
+    .replace(/\.(mp4|mp3)/g, '')
+    .trim();
+
+  const sorted = [];
+  for (const [cnName, keywords] of Object.entries(SERIES_KEYWORDS)) {
+    for (const kw of keywords) {
+      sorted.push({ len: kw.length, cnName, kw });
+    }
+  }
+  sorted.sort((a, b) => b.len - a.len);
+
+  for (const { cnName, kw } of sorted) {
+    if (clean.includes(kw)) return cnName;
+  }
+
+  let name = clean.replace(/^[\d.]+集?\s*/, '').replace(/\s*第\d+集\s*/g, '').trim();
+  if (name.length > 15) name = name.slice(0, 15);
+  return name || '未知';
+}
+
+// ==========================================
+// OCR 图片识别
+// ==========================================
+
+function handleImageUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  processImage(file);
+}
+
+function processImage(file) {
+  const zone = document.getElementById('imageUploadZone');
+  const progress = document.getElementById('ocrProgress');
+
+  // 显示预览
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    zone.classList.add('has-image');
+    zone.innerHTML = `
+      <img src="${e.target.result}" class="upload-preview" alt="打卡截图预览">
+      <div class="upload-hint">点击可重新上传</div>
+    `;
+    // 开始OCR
+    startOCR(e.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+async function startOCR(imageData) {
+  const progress = document.getElementById('ocrProgress');
+  const fillBar = document.getElementById('ocrProgressFill');
+  const progressText = document.getElementById('ocrProgressText');
+
+  progress.classList.add('active');
+  fillBar.style.width = '0%';
+  progressText.textContent = '正在加载OCR引擎（首次较慢，约10-30秒）...';
+
+  // 先尝试只加载eng（更快），识别后再补充中文
+  // 图片预处理：如果图片太大，先压缩以提高OCR识别率
+  let processedImageData = imageData;
+  try {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject; img.src = imageData; });
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    // 最大宽度1600px，等比缩放（大图容易导致Tesseract识别截断）
+    const MAX_W = 1600;
+    const MAX_H = 4000;
+    let w = img.width, h = img.height;
+    if (w > MAX_W) { h = h * MAX_W / w; w = MAX_W; }
+    if (h > MAX_H) { w = w * MAX_H / h; h = MAX_H; }
+    canvas.width = Math.round(w);
+    canvas.height = Math.round(h);
+    // 使用白色背景（避免透明底干扰）
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, w, h);
+    ctx.drawImage(img, 0, 0, Math.round(w), Math.round(h));
+    processedImageData = canvas.toDataURL('image/jpeg', 0.92);
+  } catch(e) {
+    console.warn('图片预处理失败，使用原图', e);
+  }
+
+  const ocrPromise = Tesseract.recognize(processedImageData, 'chi_sim+eng', {
+    logger: function(info) {
+      if (info.status === 'loading tesseract core') {
+        progressText.textContent = '正在加载OCR核心...';
+        fillBar.style.width = '5%';
+      } else if (info.status === 'initializing tesseract') {
+        progressText.textContent = '正在初始化OCR...';
+        fillBar.style.width = '10%';
+      } else if (info.status === 'loading language traineddata') {
+        const langName = info.data && info.data.language ? info.data.language : '语言包';
+        progressText.textContent = `正在加载${langName}语言包... ${Math.round((info.progress || 0) * 100)}%`;
+        fillBar.style.width = `${10 + (info.progress || 0) * 50}%`;
+      } else if (info.status === 'initializing api') {
+        progressText.textContent = '正在初始化识别引擎...';
+        fillBar.style.width = '60%';
+      } else if (info.status === 'recognizing text') {
+        progressText.textContent = `正在识别文字... ${Math.round((info.progress || 0) * 100)}%`;
+        fillBar.style.width = `${60 + (info.progress || 0) * 35}%`;
+      }
+    }
+  });
+
+  // 30秒超时保护
+  const timeoutPromise = new Promise((_, reject) => {
+    setTimeout(() => reject(new Error('OCR超时')), 30000);
+  });
+
+  Promise.race([ocrPromise, timeoutPromise]).then(function(result) {
+    ocrTextCache = result.data.text;
+    fillBar.style.width = '100%';
+    progressText.textContent = '✅ 识别完成！点击"解析并填写"写入数据';
+    previewParsedData();
+    showToast('✅ 图片文字已识别，请确认解析结果', 'success');
+  }).catch(function(err) {
+    progressText.textContent = '⚠️ OCR识别较慢或失败，请使用手动粘贴文字';
+    fillBar.style.width = '0%';
+    console.error('OCR Error:', err);
+    // 自动展开文字粘贴区
+    document.getElementById('textPasteArea').classList.add('visible');
+    showToast('OCR加载较慢，建议使用手动粘贴文字模式', 'warning');
+  });
+}
+
+function previewParsedData() {
+  if (!ocrTextCache) {
+    showToast('请先上传图片', 'warning');
+    return;
+  }
+
+  const parsed = parseDibaText(ocrTextCache);
+  const resultDiv = document.getElementById('parseResult');
+  resultDiv.style.display = 'block';
+
+  let html = '';
+
+  // 磨眼睛（始终显示，方便确认是否识别到）
+  html += `<div style="margin-bottom:10px"><span class="field-label">🧿 磨眼睛：</span>`;
+  if (parsed.eye_content) {
+    html += `<div class="preview-content">${formatContentPreview(parsed.eye_content)}</div>`;
+  } else {
+    html += `<span style="color:#ff8c00;font-size:12px">⚠️ 未识别到mp4内容</span>`;
+  }
+  html += `<span class="preview-time" style="${parsed.eye_time > 0 ? '' : 'color:#ff8c00'}">${parsed.eye_time > 0 ? parsed.eye_time + '分钟' : '⚠️ 时长为0'}</span></div>`;
+
+  // 磨耳朵（始终显示）
+  html += `<div style="margin-bottom:10px"><span class="field-label">🎧 磨耳朵：</span>`;
+  if (parsed.ear_content) {
+    html += `<div class="preview-content">${formatContentPreview(parsed.ear_content)}</div>`;
+  } else {
+    html += `<span style="color:#ff8c00;font-size:12px">⚠️ 未识别到mp3内容</span>`;
+  }
+  html += `<span class="preview-time" style="${parsed.ear_time > 0 ? '' : 'color:#ff8c00'}">${parsed.ear_time > 0 ? parsed.ear_time + '分钟' : '⚠️ 时长为0'}</span></div>`;
+
+  // 闪卡（始终显示，方便确认是否识别到）
+  html += `<div style="margin-bottom:10px"><span class="field-label">🃏 闪卡：</span>`;
+  if (parsed.flash_time > 0 || parsed.flash_content) {
+    html += `${parsed.flash_content} | <span class="preview-time">${parsed.flash_time}分钟</span>`;
+  } else {
+    // 尝试从原始文字提取闪卡附近的内容展示给用户
+    const flashIdx = ocrTextCache.indexOf('闪卡');
+    let flashSnippet = '';
+    if (flashIdx >= 0) {
+      flashSnippet = ocrTextCache.slice(flashIdx, flashIdx + 100).replace(/\n/g, ' ');
+      html += `<span style="color:#ff8c00;font-size:12px">⚠️ 未成功解析，但OCR原文有此内容：</span>
+        <div style="font-size:11px;background:rgba(255,140,0,0.06);padding:4px 8px;border-radius:4px;margin-top:4px;color:#995100;border:1px dashed rgba(255,140,0,0.3);white-space:pre-wrap;word-break:break-all">${flashSnippet}</div>`;
+    } else {
+      html += `<span style="color:#ff8c00;font-size:12px">⚠️ OCR文字中没有找到"闪卡"关键词</span>`;
+    }
+  }
+  html += `</div>`;
+  // 外教
+  if (parsed.tutor_content) {
+    html += `<div><span class="field-label">👩‍🏫 外教：</span>${parsed.tutor_content}</div>`;
+  }
+  // 泛读Quiz
+  if (parsed.quiz_content) {
+    html += `<div><span class="field-label">📝 泛读Quiz：</span>${parsed.quiz_content}</div>`;
+  }
+  // 额外提示
+  parsed.extra_notes.forEach(n => {
+    html += `<div style="color:#ff8c00;margin-top:6px">${n}</div>`;
+  });
+
+  if (!parsed.eye_content && !parsed.ear_content && !parsed.flash_content && !parsed.tutor_content && !parsed.quiz_content) {
+    html = '<div style="color:var(--text-tertiary);margin-bottom:8px">⚠️ 未识别到有效数据</div>';
+    document.getElementById('textPasteArea').classList.add('visible');
+  }
+
+  // 始终显示原始OCR文字
+  const rawText = ocrTextCache.trim();
+  html += `
+    <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--border-strong)">
+      <details open>
+        <summary style="font-size:12px;color:var(--accent);cursor:pointer;font-weight:600">🔍 查看OCR原始文字（点击展开/收起）</summary>
+        <div style="margin-top:10px;padding:10px;background:rgba(99,102,241,0.04);border-radius:8px;font-size:11px;color:var(--text-secondary);white-space:pre-wrap;word-break:break-all;max-height:none;overflow:visible;line-height:1.7;border:1px solid rgba(99,102,241,0.08)">
+          ${rawText || '(空 - OCR未识别到任何文字)'}
+        </div>
+        <div style="font-size:11px;color:var(--text-tertiary);margin-top:6px;display:flex;gap:16px;flex-wrap:wrap">
+          <span>📊 总字数：${rawText.length}</span>
+          <span>📝 总行数：${rawText.split(/\n/).length}</span>
+          <span>📺 含"mp4"：${(rawText.match(/mp4/gi) || []).length}处</span>
+          <span>🎧 含"mp3"：${(rawText.match(/mp3/gi) || []).length}处</span>
+          <span>👁 含"磨眼"：${(rawText.match(/磨眼/g) || []).length}处</span>
+          <span>👂 含"磨耳"：${(rawText.match(/磨耳/g) || []).length}处</span>
+          <span>🃏 含"闪卡"：${(rawText.match(/闪卡/g) || []).length}处</span>
+        </div>` + (
+          !/闪卡/.test(rawText) ? `<div style="font-size:11px;color:#d97706;background:#fef3c7;padding:6px 10px;border-radius:6px;margin-top:8px;border:1px solid #f59e0b33">
+            ⚠️ OCR文字中未找到"闪卡"，可能原因：
+            ① Tesseract未识别图片下半部分（学习概要/明细区域）<br>
+            ② 建议重新上传截图，或裁剪只保留「学习概要+学习明细」区域再上传
+          </div>` : ''
+        ) + `
+      </details>
+    </div>
+  `;
+
+  resultDiv.innerHTML = html;
+}
+
+function formatContentPreview(content) {
+  if (!content) return '';
+  // 如果已经有编号（来自parseDibaText），直接显示
+  if (content.includes('\n')) {
+    return content.split('\n').map(line => `<div class="preview-item">${line}</div>`).join('');
+  }
+  // 如果是逗号分隔的旧格式，改为编号
+  const items = content.split(',').map(s => s.trim()).filter(s => s);
+  if (items.length > 1) {
+    return items.map((item, i) => `<div class="preview-item">${i+1}.${item}</div>`).join('');
+  }
+  return content;
+}
+
+function fillFromOCR() {
+  if (!ocrTextCache) {
+    showToast('请先上传图片进行OCR识别', 'warning');
+    return;
+  }
+
+  const parsed = parseDibaText(ocrTextCache);
+  const dayIdx = parseInt(document.getElementById('autoFillDate').value);
+  const week = appData.weeks[appData.currentWeekIndex];
+  const day = week.days[dayIdx];
+
+  // 自动填写的项目
+  if (parsed.eye_content) day.projects.eye.content = parsed.eye_content;
+  if (parsed.eye_time > 0) day.projects.eye.time = parsed.eye_time;
+  if (parsed.ear_content) day.projects.ear.content = parsed.ear_content;
+  if (parsed.ear_time > 0) day.projects.ear.time = parsed.ear_time;
+  if (parsed.flash_content) day.projects.flash.content = parsed.flash_content;
+  if (parsed.flash_time > 0) day.projects.flash.time = parsed.flash_time;
+  if (parsed.tutor_content) day.projects.tutor.content = parsed.tutor_content;
+  if (parsed.quiz_content) day.projects.quiz.content = parsed.quiz_content;
+
+  day.autoFilled = true;
+
+  saveData(appData);
+  render();
+
+  showToast(`✅ 已自动填写 ${day.label} 的数据！`, 'success');
+}
+
+function parseAndFillFromText() {
+  const text = document.getElementById('autoFillInput').value;
+  if (!text.trim()) {
+    showToast('请粘贴迪爸打卡文字内容', 'warning');
+    return;
+  }
+
+  ocrTextCache = text;
+  previewParsedData();
+  fillFromOCR();
+}
+
+function clearOCRData() {
+  ocrTextCache = '';
+  const zone = document.getElementById('imageUploadZone');
+  zone.classList.remove('has-image');
+  zone.innerHTML = `
+    <div class="upload-icon">📷</div>
+    <div class="upload-text">点击上传迪爸打卡截图</div>
+    <div class="upload-hint">支持 JPG/PNG 格式，拖拽也可上传</div>
+  `;
+  document.getElementById('ocrProgress').classList.remove('active');
+  document.getElementById('parseResult').style.display = 'none';
+  document.getElementById('autoFillInput').value = '';
+  document.getElementById('imageFileInput').value = '';
+}
+
+function toggleTextPaste() {
+  const area = document.getElementById('textPasteArea');
+  area.classList.toggle('visible');
+}
+
+// 拖拽上传
+const uploadZone = document.getElementById('imageUploadZone');
+uploadZone.addEventListener('dragover', function(e) {
+  e.preventDefault();
+  this.classList.add('dragging');
+});
+uploadZone.addEventListener('dragleave', function(e) {
+  e.preventDefault();
+  this.classList.remove('dragging');
+});
+uploadZone.addEventListener('drop', function(e) {
+  e.preventDefault();
+  this.classList.remove('dragging');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    processImage(file);
+  } else {
+    showToast('请上传图片文件', 'warning');
+  }
+});
+
+// ==========================================
+// UI 渲染
+// ==========================================
+
+function render() {
+  renderWeekTabs();
+  renderTable();
+  renderDatePicker();
+  renderCharts();
+  renderNotesArea();
+  // 更新统计表标题旁的周信息
+  const weekInfoLabel = document.getElementById('weekInfoLabel');
+  const currentWeek = appData.weeks[appData.currentWeekIndex];
+  if (weekInfoLabel && currentWeek) {
+    weekInfoLabel.textContent = currentWeek.subtitle;
+  }
+}
+
+function renderNotesArea() {
+  const week = appData.weeks[appData.currentWeekIndex];
+  const textarea = document.getElementById('notesTextarea');
+  if (!textarea || !week) return;
+  // 避免在输入时覆盖用户正在编辑的内容（焦点在textarea内时不更新value）
+  if (document.activeElement === textarea) return;
+  textarea.value = week.notes || '';
+  autoResizeTextarea(textarea);
+}
+
+function autoResizeTextarea(el) {
+  if (!el) return;
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+function saveNotes() {
+  const week = appData.weeks[appData.currentWeekIndex];
+  const textarea = document.getElementById('notesTextarea');
+  if (!week || !textarea) return;
+  week.notes = textarea.value;
+  autoResizeTextarea(textarea);
+  saveData(appData);
+}
+
+function renderWeekTabs() {
+  const container = document.getElementById('weekTabs');
+  const weeks = appData.weeks;
+
+  container.innerHTML = '';
+  weeks.forEach((week, i) => {
+    const tab = document.createElement('button');
+    tab.className = `week-tab${i === appData.currentWeekIndex ? ' active' : ''}`;
+    tab.textContent = week.name;
+    tab.onclick = () => { appData.currentWeekIndex = i; render(); };
+    container.appendChild(tab);
+  });
+
+}
+
+function formatContentDisplay(content, projId) {
+  if (!content) return '';
+  // 闪卡和外教不用编号格式，直接显示
+  const noNumberIds = ['flash', 'tutor'];
+  if (noNumberIds.includes(projId)) return content;
+  // 如果已经是编号格式（含换行且以数字开头），直接显示
+  if (content.includes('\n') && content.match(/^\d+\./m)) return content;
+  // 如果是逗号分隔的旧格式，转换为编号格式
+  if (content.includes(',')) {
+    const items = content.split(',').map(s => s.trim()).filter(s => s);
+    return items.map((item, i) => `${i+1}.${item}`).join('\n');
+  }
+  // 单条内容也加编号
+  return `1.${content}`;
+}
+
+function renderTable() {
+  const table = document.getElementById('statTable');
+  const week = appData.weeks[appData.currentWeekIndex];
+  if (!week) return;
+
+  const unitLabel = getTimeUnitLabel();
+
+  // 表头
+  let html = '<thead><tr>';
+  html += '<th colspan="1">日期</th>';
+  PROJECTS.forEach(p => {
+    const cols = p.hasTime ? 2 : 1;
+    html += `<th colspan="${cols}">${p.name}</th>`;
+  });
+  html += `<th colspan="2">合计</th>`;
+  html += '</tr><tr>';
+
+  // 子表头
+  html += '<th class="sub-header"></th>';
+  PROJECTS.forEach(p => {
+    html += '<th class="sub-header">内容</th>';
+    if (p.hasTime) html += `<th class="sub-header">${unitLabel}</th>`;
+  });
+  html += '<th class="sub-header">分钟</th>';
+  html += '<th class="sub-header">小时</th>';
+  html += '</tr></thead>';
+
+  // 数据行
+  html += '<tbody>';
+  const weekTotals = {};
+  PROJECTS.forEach(p => { weekTotals[p.id] = 0; });
+  let weekTotalTime = 0;
+
+  week.days.forEach((day, dayIdx) => {
+    const isWeekend = dayIdx >= 5;
+    let dayTotal = 0;
+
+    html += `<tr>`;
+    html += `<td class="date-cell ${isWeekend ? 'weekend-row' : ''}">${day.label}</td>`;
+
+    PROJECTS.forEach(p => {
+      const val = day.projects[p.id];
+      const contentClass = val.content ? 'content-cell editable has-data' : 'content-cell editable';
+      const timeClass = val.time > 0 ? 'time-cell has-data editable' : 'time-cell editable';
+
+      const displayContent = formatContentDisplay(val.content, p.id);
+      html += `<td class="${contentClass}" data-week="${appData.currentWeekIndex}" data-day="${dayIdx}" data-proj="${p.id}" data-field="content" onclick="openEditModal(this)">${displayContent}</td>`;
+      if (p.hasTime) {
+        html += `<td class="${timeClass}" data-week="${appData.currentWeekIndex}" data-day="${dayIdx}" data-proj="${p.id}" data-field="time" onclick="openEditModal(this)">${formatTimeShort(val.time)}</td>`;
+        dayTotal += val.time;
+        weekTotals[p.id] += val.time;
+      }
+    });
+
+    weekTotalTime += dayTotal;
+
+    // 合计：分钟 + 小时 双列显示
+    const dayTotalMin = dayTotal;
+    const dayTotalHour = dayTotal > 0 ? (dayTotal / 60).toFixed(1).replace('.0', '') : '';
+    html += `<td class="total-cell">${dayTotalMin > 0 ? dayTotalMin : ''}</td>`;
+    html += `<td class="total-cell">${dayTotalHour}</td>`;
+    html += '</tr>';
+  });
+
+  // 周汇总行
+  html += `<tr>`;
+  html += `<td class="summary-row">📊 周汇总</td>`;
+  PROJECTS.forEach(p => {
+    const itemCount = week.days.filter(d => d.projects[p.id].content).length;
+    html += `<td class="summary-row">${itemCount > 0 ? itemCount + '项' : ''}</td>`;
+    if (p.hasTime) {
+      const total = formatTimeShort(weekTotals[p.id]);
+      html += `<td class="summary-row">${total}</td>`;
+    }
+  });
+  html += `<td class="summary-row">${weekTotalTime > 0 ? weekTotalTime : ''}</td>`;
+  html += `<td class="summary-row">${weekTotalTime > 0 ? (weekTotalTime / 60).toFixed(1).replace('.0', '') : ''}</td>`;
+  html += '</tr>';
+
+  html += '</tbody>';
+  table.innerHTML = html;
+}
+
+function renderDatePicker() {
+  const select = document.getElementById('autoFillDate');
+  const week = appData.weeks[appData.currentWeekIndex];
+  if (!week) return;
+
+  select.innerHTML = '';
+  week.days.forEach((day, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = day.label;
+    select.appendChild(opt);
+  });
+}
+
+// ==========================================
+// 图表渲染
+// ==========================================
+
+// ==========================================
+// 图表 — 蓝紫清新风格 + 数据标签 + 玻璃质感
+// ==========================================
+
+let charts = {};
+
+// Chart.js 自定义插件：柱状图显示数值，饼图中心显示总时长
+const chartDataLabels = {
+  id: 'chartDataLabels',
+  afterDatasetsDraw(chart) {
+    const { ctx } = chart;
+
+    // 饼图：在中心显示总时长（不画在扇区上，避免重叠遮挡）
+    if (chart.config.type === 'doughnut') {
+      const dataset = chart.data.datasets[0];
+      const total = dataset.data.reduce((a, b) => a + b, 0);
+      const { width, height } = chart;
+      ctx.save();
+      ctx.font = 'bold 24px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = '#4338ca';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(`${total}`, width / 2, height / 2 - 8);
+      ctx.font = '500 13px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = '#8b5cf6';
+      ctx.fillText('分钟', width / 2, height / 2 + 14);
+      ctx.restore();
+      return;
+    }
+
+    // 柱状图：在柱子上显示数值
+    chart.data.datasets.forEach((dataset, datasetIndex) => {
+      const meta = chart.getDatasetMeta(datasetIndex);
+      if (meta.hidden) return;
+      meta.data.forEach((element, index) => {
+        const value = dataset.data[index];
+        if (!value || value === 0) return;
+        ctx.save();
+        ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+
+        const barHeight = Math.abs(element.y - element.base);
+        const isHighEnough = barHeight > 30;
+
+        if (isHighEnough) {
+          // 画在柱子内部顶部
+          ctx.fillStyle = '#fff';
+          ctx.textBaseline = 'top';
+          ctx.shadowColor = 'rgba(0,0,0,0.25)';
+          ctx.shadowBlur = 3;
+          ctx.fillText(value, element.x, element.y + 5);
+        } else {
+          // 画在柱子顶部外侧
+          ctx.fillStyle = '#4c1d95';
+          ctx.textBaseline = 'bottom';
+          ctx.fillText(value, element.x, element.y - 5);
+        }
+        ctx.restore();
+      });
+    });
+  }
+};
+
+// 三色区分配色表（磨眼睛=蓝紫、磨耳朵=粉、总时长=浅蓝）
+const CHART_COLORS = {
+  eye:  { bg: 'rgba(99,102,241,0.85)',  border: '#6366f1',  gradient: ['#6366f1', '#818cf8'] },
+  ear:  { bg: 'rgba(236,72,153,0.85)',  border: '#ec4899',  gradient: ['#ec4899', '#fbcfe8'] },
+  total:{ bg: 'rgba(14,165,233,0.85)',   border: '#0ea5e9',  gradient: ['#0ea5e9', '#7dd3fc'] },
+};
+
+function getBarGradient(ctx, colorKey) {
+  const c = CHART_COLORS[colorKey];
+  if (!c) return CHART_COLORS.eye.bg;
+  const gradient = ctx.createLinearGradient(0, 200, 0, 0);
+  gradient.addColorStop(0, c.gradient[0]);
+  gradient.addColorStop(1, c.gradient[1]);
+  return gradient;
+}
+
+function renderCharts() {
+  const week = appData.weeks[appData.currentWeekIndex];
+  if (!week) return;
+
+  const eyeTimes = week.days.map(d => d.projects.eye.time);
+  const earTimes = week.days.map(d => d.projects.ear.time);
+
+  // 磨眼睛摘要
+  const eyeTotal = eyeTimes.reduce((a, b) => a + b, 0);
+  const eyeDays = eyeTimes.filter(t => t > 0).length;
+  const eyeAvg = eyeDays > 0 ? (eyeTotal / eyeDays).toFixed(0) : 0;
+  renderSummary('eyeSummary', eyeTotal, eyeAvg);
+
+  // 磨耳朵摘要
+  const earTotal = earTimes.reduce((a, b) => a + b, 0);
+  const earDays = earTimes.filter(t => t > 0).length;
+  const earAvg = earDays > 0 ? (earTotal / earDays).toFixed(0) : 0;
+  renderSummary('earSummary', earTotal, earAvg);
+
+  // 各项目占比
+  const projectTotals = PROJECTS.map(p => {
+    return week.days.reduce((sum, d) => sum + d.projects[p.id].time, 0);
+  });
+
+  // 每日总时长
+  const dailyTotals = week.days.map(d => {
+    return PROJECTS.reduce((sum, p) => sum + d.projects[p.id].time, 0);
+  });
+
+  // 渲染图表
+  renderBarChart('eyeChart', eyeTimes, DAY_NAMES, 'eye');
+  renderBarChart('earChart', earTimes, DAY_NAMES, 'ear');
+  renderPieChart('pieChart', PROJECTS.map(p => p.name), projectTotals);
+  renderBarChart('totalChart', dailyTotals, DAY_NAMES, 'total');
+}
+
+function renderSummary(containerId, total, avg) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = `
+    <div class="chart-summary-item">
+      <div class="cs-label">本周累计</div>
+      <div class="cs-value">${total}<small>min</small></div>
+    </div>
+    <div class="chart-summary-item">
+      <div class="cs-label">日均时长</div>
+      <div class="cs-value">${avg}<small>min</small></div>
+    </div>
+  `;
+}
+
+function renderBarChart(canvasId, data, labels, colorKey) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  if (charts[canvasId]) charts[canvasId].destroy();
+
+  const ctx = canvas.getContext('2d');
+  const gradient = getBarGradient(ctx, colorKey);
+
+  charts[canvasId] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: gradient,
+        borderColor: CHART_COLORS[colorKey]?.border || '#6366f1',
+        borderWidth: 0,
+        borderRadius: 10,
+        borderSkipped: false,
+        barThickness: 28,
+        maxBarThickness: 36,
+      }]
+    },
+    plugins: [chartDataLabels],
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: { top: 6, bottom: 2 }
+      },
+      animation: {
+        duration: 800,
+        easing: 'easeOutQuart'
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(67,56,202,0.9)',
+          titleColor: '#fff',
+          bodyColor: '#fff',
+          borderColor: 'rgba(255,255,255,0.2)',
+          borderWidth: 1,
+          cornerRadius: 10,
+          padding: 10,
+          displayColors: false,
+          callbacks: {
+            label: (ctx) => `${ctx.parsed.y} 分钟`
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(99,102,241,0.08)',
+            drawBorder: false,
+          },
+          ticks: {
+            color: '#9ca3af',
+            font: { size: 10 },
+            padding: 6,
+          },
+          border: { display: false }
+        },
+        x: {
+          grid: { display: false, drawBorder: false },
+          ticks: {
+            color: '#6b7280',
+            font: { size: 11, weight: '500' },
+            padding: 8,
+          },
+          border: { display: false }
+        }
+      }
+    }
+  });
+}
+
+function renderPieChart(canvasId, labels, data) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  if (charts[canvasId]) charts[canvasId].destroy();
+
+  // 多彩配色：每个项目用不同颜色，一眼区分
+  const colors = [
+    '#6366f1', // 磨眼睛 - 靛蓝
+    '#ec4899', // 磨耳朵 - 粉红
+    '#f97316', // 指读 - 橙色
+    '#fbbf24', // 甜点 - 金黄
+    '#22c55e', // 外教 - 翠绿
+    '#06b6d4', // 泛读Quiz - 青色
+    '#8b5cf6', // 书写练习 - 紫色
+    '#fb7185', // 闪卡 - 玫瑰粉
+  ];
+
+  const filteredLabels = [], filteredData = [], filteredColors = [];
+  labels.forEach((l, i) => {
+    if (data[i] > 0) {
+      filteredLabels.push(l);
+      filteredData.push(data[i]);
+      filteredColors.push(colors[i]);
+    }
+  });
+
+  if (filteredData.length === 0) {
+    filteredLabels.push('无数据');
+    filteredData.push(1);
+    filteredColors.push('#e5e7eb');
+  }
+
+  charts[canvasId] = new Chart(canvas.getContext('2d'), {
+    type: 'doughnut',
+    data: {
+      labels: filteredLabels,
+      datasets: [{
+        data: filteredData,
+        backgroundColor: filteredColors,
+        borderWidth: 3,
+        borderColor: 'rgba(255,255,255,0.8)',
+        hoverOffset: 8,
+      }]
+    },
+    plugins: [chartDataLabels],
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: 1.1,
+      layout: {
+        padding: { top: 4, bottom: 4, left: 4, right: 4 }
+      },
+      cutout: '58%',
+      animation: {
+        animateRotate: true,
+        duration: 1000,
+        easing: 'easeOutQuart'
+      },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            font: { size: 10, weight: '500' },
+            boxWidth: 10,
+            padding: 10,
+            color: '#4b5563',
+            usePointStyle: true,
+            pointStyle: 'circle',
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(67,56,202,0.9)',
+          titleColor: '#fff',
+          bodyColor: '#fff',
+          borderColor: 'rgba(255,255,255,0.2)',
+          borderWidth: 1,
+          cornerRadius: 10,
+          padding: 10,
+          callbacks: {
+            label: (ctx) => {
+              const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+              const pct = total > 0 ? ((ctx.parsed / total) * 100).toFixed(1) : 0;
+              return ` ${ctx.label}: ${ctx.parsed}min (${pct}%)`;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+// ==========================================
+// 编辑功能
+// ==========================================
+
+let editTarget = null;
+
+function openEditModal(cell) {
+  const weekIdx = parseInt(cell.dataset.week);
+  const dayIdx = cell.dataset.day !== undefined ? parseInt(cell.dataset.day) : null;
+  const projId = cell.dataset.proj;
+  const field = cell.dataset.field;
+
+  const week = appData.weeks[weekIdx];
+  editTarget = { weekIdx, dayIdx, projId, field };
+
+  const modal = document.getElementById('editModal');
+  const titleEl = document.getElementById('editModalTitle');
+  const contentField = document.getElementById('editContentField');
+  const timeField = document.getElementById('editTimeField');
+  const contentInput = document.getElementById('editContentInput');
+  const timeInput = document.getElementById('editTimeInput');
+
+  if (dayIdx !== null && projId) {
+    const day = week.days[dayIdx];
+    const proj = PROJECTS.find(p => p.id === projId);
+    const val = day.projects[projId];
+
+    titleEl.textContent = `编辑 ${day.label} - ${proj.name}`;
+
+    contentField.querySelector('label').textContent = `${proj.name}内容`;
+    contentField.style.display = proj.hasContent ? 'block' : 'none';
+    contentInput.value = val.content || '';
+    contentInput.placeholder = `填写${proj.name}内容（可换行分条填写）`;
+    // 自动调整textarea高度适应内容
+    contentInput.style.height = 'auto';
+    setTimeout(() => {
+      contentInput.style.height = Math.max(120, contentInput.scrollHeight) + 'px';
+    }, 0);
+
+    timeField.querySelector('label').textContent = `${proj.name}时长 (分钟)`;
+    timeField.style.display = proj.hasTime ? 'block' : 'none';
+    timeInput.value = val.time || 0;
+  }
+
+  modal.classList.add('active');
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').classList.remove('active');
+  editTarget = null;
+}
+
+function saveEdit() {
+  if (!editTarget) return;
+
+  const { weekIdx, dayIdx, projId, field } = editTarget;
+  const week = appData.weeks[weekIdx];
+  const contentInput = document.getElementById('editContentInput');
+  const timeInput = document.getElementById('editTimeInput');
+
+  if (dayIdx !== null && projId) {
+    const day = week.days[dayIdx];
+    const proj = PROJECTS.find(p => p.id === projId);
+    if (proj.hasContent) day.projects[projId].content = contentInput.value;
+    if (proj.hasTime) day.projects[projId].time = parseInt(timeInput.value) || 0;
+  }
+
+  saveData(appData);
+  closeEditModal();
+  render();
+  showToast('✅ 已保存', 'success');
+}
+
+document.getElementById('editModal').addEventListener('click', function(e) {
+  if (e.target === this) closeEditModal();
+});
+
+// ==========================================
+// 周管理
+// ==========================================
+
+function addNewWeek() {
+  const lastWeek = appData.weeks[appData.weeks.length - 1];
+  const lastStart = new Date(lastWeek.startDate);
+  const newStart = new Date(lastStart);
+  newStart.setDate(newStart.getDate() + 7);
+
+  const newEnd = new Date(newStart);
+  newEnd.setDate(newEnd.getDate() + 6);
+
+  const weekNum = appData.weeks.length + 31;
+  const sm = newStart.getMonth() + 1;
+  const sd = newStart.getDate();
+  const em = newEnd.getMonth() + 1;
+  const ed = newEnd.getDate();
+
+  appData.weeks.push({
+    id: weekNum,
+    name: `第${weekNum}周`,
+    startDate: newStart.toISOString().slice(0, 10),
+    endDate: newEnd.toISOString().slice(0, 10),
+    subtitle: `${sm}月  诚诚周训练记录表  ${sm}.${sd}----${em}.${ed}`,
+    days: createEmptyDays(newStart.toISOString().slice(0, 10)),
+    notes: '',
+  });
+
+  appData.currentWeekIndex = appData.weeks.length - 1;
+  saveData(appData);
+  render();
+  showToast(`✅ 已创建第${weekNum}周`, 'success');
+}
+
+// ==========================================
+// 导入导出
+// ==========================================
+
+function exportExcel() {
+  const week = appData.weeks[appData.currentWeekIndex];
+  let csv = '\uFEFF';
+
+  const unitLabel = 'min';
+
+  // 表头
+  csv += '日期,';
+  PROJECTS.forEach(p => {
+    csv += `${p.name}内容,`;
+    if (p.hasTime) csv += `${p.name}时长(${unitLabel}),`;
+  });
+  csv += `合计(${unitLabel})\n`;
+
+  // 数据
+  week.days.forEach(day => {
+    csv += `${day.label},`;
+    let total = 0;
+    PROJECTS.forEach(p => {
+      csv += `${day.projects[p.id].content},`;
+      if (p.hasTime) {
+        const val = day.projects[p.id].time;
+        csv += `${val},`;
+        total += day.projects[p.id].time;
+      }
+    });
+    csv += `${total}\n`;
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `诚诚周训练记录_${week.name}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ Excel已导出', 'success');
+}
+
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(appData, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `诚诚训练数据备份_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ 数据已备份', 'success');
+}
+
+function importJSON() {
+  document.getElementById('jsonFileInput').click();
+}
+
+function handleJSONImport(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    try {
+      const imported = JSON.parse(e.target.result);
+      // 兼容旧数据：rt → quiz
+      if (imported.weeks) {
+        imported.weeks.forEach(w => {
+          w.days.forEach(d => {
+            if (d.projects.rt && !d.projects.quiz) {
+              d.projects.quiz = d.projects.rt;
+              delete d.projects.rt;
+            }
+          });
+        });
+      }
+      appData = imported;
+      saveData(appData);
+      render();
+      // 如果已登录，同时上传到云端
+      if (cloudSyncEnabled && currentUser) {
+        showToast('⏫ 正在同步到云端...', 'success');
+        await saveToCloud(appData);
+        showToast('✅ 数据已恢复并同步到云端！', 'success');
+      } else {
+        showToast('✅ 数据已恢复（未登录，仅本地）', 'success');
+      }
+    } catch(err) {
+      showToast('❌ 文件格式错误', 'error');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// 已登录状态下，手动触发「导入JSON并上传到云端」
+function importJSONToCloud() {
+  if (!cloudSyncEnabled || !currentUser) {
+    showToast('⚠️ 请先登录，再导入数据到云端', 'warning');
+    return;
+  }
+  document.getElementById('jsonFileInput').click();
+}
+
+// ==========================================
+// 分享
+// ==========================================
+
+function shareThisTool() {
+  const url = window.location.href;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => {
+      showToast('✅ 链接已复制，可以分享给其他家长了！', 'success');
+    });
+  } else {
+    const textarea = document.createElement('textarea');
+    textarea.value = url;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    showToast('✅ 链接已复制', 'success');
+  }
+}
+
+// ==========================================
+// Toast通知
+// ==========================================
+
+function showToast(message, type = 'success') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+
+  const icons = { success: '✅', warning: '⚠️', error: '❌' };
+  toast.innerHTML = `<span>${icons[type] || ''}</span> ${message}`;
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(100px)';
+    toast.style.transition = '0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+// ==========================================
+// 数据重置
+// ==========================================
+
+function resetData() {
+  const weekIdx = appData.currentWeekIndex;
+  const weekName = appData.weeks[weekIdx]?.name || '当前周';
+  if (confirm(`⚠️ 将清零「${weekName}」的所有数据，其他周不受影响。\n\n此操作不可撤销！确定要清零吗？`)) {
+    const week = appData.weeks[weekIdx];
+    if (week) {
+      // 保留周的基本信息（名称、日期），只清空每天的数据
+      week.days.forEach(day => {
+        day.projects = createEmptyProjects();
+        day.autoFilled = false;
+      });
+      week.notes = '';
+    }
+    saveData(appData);
+    render();
+    showToast(`✅ 「${weekName}」数据已清零`, 'success');
+  }
+}
+
+// ==========================================
+// 初始化
+// ==========================================
+
+render();
+
+// 初始化 Supabase 认证（异步，不影响页面初始渲染）
+// 需要先等 DOM 就绪
+document.addEventListener('DOMContentLoaded', () => {
+  initAuth();
+});
+// 如果 DOMContentLoaded 已触发（脚本在底部），直接调用
+if (document.readyState !== 'loading') {
+  initAuth();
+}
+</script>
+</body>
+</html>
