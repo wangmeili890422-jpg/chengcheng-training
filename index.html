@@ -1109,9 +1109,7 @@ async function signInWithGitHub() {
   try {
     const { error } = await sbClient.auth.signInWithOAuth({
       provider: 'github',
-      options: {
-        redirectTo: window.location.origin + window.location.pathname
-      }
+    
     });
     if (error) throw error;
   } catch(e) {
