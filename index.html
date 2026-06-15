@@ -837,7 +837,16 @@ canvas.chart { width: 100% !important; height: 200px !important; }
       <button onclick="sendMagicLink()" 
         style="width:100%;padding:13px;background:linear-gradient(135deg,#6366f1,#818cf8);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity 0.2s"
         onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
-        发送登录链接
+        发送登录链接 <div style="display:flex;align-items:center;gap:10px;margin:10px 0">
+        <div style="flex:1;height:1px;background:#e8e8e8"></div>
+        <span style="font-size:12px;color:#bbb">或</span>
+        <div style="flex:1;height:1px;background:#e8e8e8"></div>
+      </div>
+      <button onclick="signInWithGitHub()"
+        style="width:100%;padding:13px;background:linear-gradient(135deg,#24292e,#2b3137);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity 0.2s"
+        onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
+        🐙 使用 GitHub 登录
+      </button>
       </button>
       <p style="font-size:12px;color:#999;margin-top:12px">首次使用会自动注册账号</p>
       <button onclick="closeLoginModal()" style="margin-top:8px;background:none;border:none;color:#999;font-size:13px;cursor:pointer">暂不登录，继续使用本地版</button>
@@ -1096,7 +1105,19 @@ function openLoginModal() {
 function closeLoginModal() {
   document.getElementById('loginModal').style.display = 'none';
 }
-
+async function signInWithGitHub() {
+  try {
+    const { error } = await sbClient.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: window.location.origin + window.location.pathname
+      }
+    });
+    if (error) throw error;
+  } catch(e) {
+    showToast('GitHub 登录失败：' + (e.message || '请检查网络'), 'error');
+  }
+}
 async function sendMagicLink() {
   const email = document.getElementById('loginEmail').value.trim();
   if (!email || !email.includes('@')) {
