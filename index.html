@@ -269,6 +269,134 @@ body::before {
 
 /* auto-filled不再显示🤖标记，数据可以自由编辑 */
 
+/* ========== 周统计总结 ========== */
+.week-summary-section {
+  margin-top: 12px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #f8f7ff 0%, #fdf2f8 50%, #f0f9ff 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid #e8e0f0;
+}
+
+.week-summary-section .summary-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6366f1;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.week-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.week-summary-item {
+  background: rgba(255,255,255,0.7);
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.week-summary-item .ws-name {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.week-summary-item .ws-total {
+  font-size: 18px;
+  font-weight: 700;
+  color: #4c1d95;
+  line-height: 1.2;
+}
+
+.week-summary-item .ws-total small {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+}
+
+.week-summary-item .ws-avg {
+  font-size: 11px;
+  color: #8b5cf6;
+  margin-top: 2px;
+}
+
+.week-summary-overview {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 8px;
+}
+
+.week-summary-overview .sov-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.week-summary-overview .sov-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4338ca;
+  line-height: 1.2;
+}
+
+.week-summary-overview .sov-value small {
+  font-size: 12px;
+  font-weight: 400;
+  color: #8b5cf6;
+}
+
+.week-summary-overview .sov-label {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.week-summary-detail {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: rgba(99,102,241,0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(99,102,241,0.12);
+}
+
+.week-summary-detail .wsd-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6366f1;
+  margin-bottom: 8px;
+}
+
+.week-summary-detail .wsd-text {
+  font-size: 13.5px;
+  color: #4c1d95;
+  line-height: 2;
+}
+
+.week-summary-detail .wsd-text .hl {
+  font-weight: 700;
+  color: #4338ca;
+}
+
+.week-summary-detail .wsd-text .motivation {
+  display: inline-block;
+  margin-top: 4px;
+  background: rgba(99,102,241,0.1);
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
 /* ========== 问题自评区域 ========== */
 .notes-section {
   margin-top: 16px;
@@ -811,8 +939,7 @@ canvas.chart { width: 100% !important; height: 200px !important; }
     </div>
     <button class="btn btn-sm" onclick="exportExcel()">📥 导出Excel</button>
     <button class="btn btn-sm" onclick="exportJSON()">💾 备份数据</button>
-     <button class="btn btn-sm" onclick="importJSON()">📂 导入备份</button>
-     <button class="btn btn-sm" onclick="importJSON()">📂 导入备份</button>
+    <button class="btn btn-sm" onclick="importJSON()">📂 导入备份</button>
     <button class="btn btn-sm btn-accent" id="importCloudBtn" onclick="importJSONToCloud()" style="display:none">☁️ 导入并同步云端</button>
     <button class="btn btn-sm" onclick="undoLastAction()">↩️ 撤销</button>
     <button class="btn btn-sm" onclick="resetData()">🗑️ 彻底清零</button>
@@ -837,7 +964,9 @@ canvas.chart { width: 100% !important; height: 200px !important; }
       <button onclick="sendMagicLink()" 
         style="width:100%;padding:13px;background:linear-gradient(135deg,#6366f1,#818cf8);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity 0.2s"
         onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
-        发送登录链接 <div style="display:flex;align-items:center;gap:10px;margin:10px 0">
+        发送登录链接
+      </button>
+      <div style="display:flex;align-items:center;gap:10px;margin:10px 0">
         <div style="flex:1;height:1px;background:#e8e8e8"></div>
         <span style="font-size:12px;color:#bbb">或</span>
         <div style="flex:1;height:1px;background:#e8e8e8"></div>
@@ -846,7 +975,6 @@ canvas.chart { width: 100% !important; height: 200px !important; }
         style="width:100%;padding:13px;background:linear-gradient(135deg,#24292e,#2b3137);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity 0.2s"
         onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
         🐙 使用 GitHub 登录
-      </button>
       </button>
       <p style="font-size:12px;color:#999;margin-top:12px">首次使用会自动注册账号</p>
       <button onclick="closeLoginModal()" style="margin-top:8px;background:none;border:none;color:#999;font-size:13px;cursor:pointer">暂不登录，继续使用本地版</button>
@@ -901,6 +1029,10 @@ canvas.chart { width: 100% !important; height: 200px !important; }
       <table class="stat-table" id="statTable">
         <!-- 动态生成 -->
       </table>
+    </div>
+    <!-- 周统计总结 -->
+    <div class="week-summary-section" id="weekSummarySection">
+      <!-- 动态生成 -->
     </div>
     <!-- 问题自评 -->
     <div class="notes-section" id="notesSection">
@@ -976,6 +1108,11 @@ canvas.chart { width: 100% !important; height: 200px !important; }
       <div class="chart-container">
         <div class="chart-title">每日总时长趋势</div>
         <canvas id="totalChart" class="chart"></canvas>
+      </div>
+      <div class="chart-container">
+        <div class="chart-title">🏆 训练总览</div>
+        <div class="chart-summary" id="summaryChartSummary"></div>
+        <canvas id="summaryChart" class="chart"></canvas>
       </div>
     </div>
   </div>
@@ -1105,17 +1242,18 @@ function openLoginModal() {
 function closeLoginModal() {
   document.getElementById('loginModal').style.display = 'none';
 }
+
 async function signInWithGitHub() {
   try {
     const { error } = await sbClient.auth.signInWithOAuth({
-      provider: 'github',
-    
+      provider: 'github'
     });
     if (error) throw error;
   } catch(e) {
     showToast('GitHub 登录失败：' + (e.message || '请检查网络'), 'error');
   }
 }
+
 async function sendMagicLink() {
   const email = document.getElementById('loginEmail').value.trim();
   if (!email || !email.includes('@')) {
@@ -2042,6 +2180,130 @@ function render() {
   if (weekInfoLabel && currentWeek) {
     weekInfoLabel.textContent = currentWeek.subtitle;
   }
+  renderWeekSummary();
+}
+
+function renderWeekSummary() {
+  const container = document.getElementById('weekSummarySection');
+  if (!container) return;
+  const week = appData.weeks[appData.currentWeekIndex];
+  if (!week) { container.innerHTML = ''; return; }
+
+  // 统计每个项目
+  const stats = {};
+  let grandTotal = 0;
+  let activeDays = new Set();
+
+  PROJECTS.forEach(p => {
+    let total = 0;
+    let days = 0;
+    week.days.forEach((d, i) => {
+      const val = d.projects[p.id];
+      if (val.content || val.time > 0) {
+        activeDays.add(i);
+      }
+      if (val.time > 0) {
+        total += val.time;
+        days++;
+      }
+    });
+    stats[p.id] = { total, days };
+    // 闪卡不计入总学习时长（以词量为统计维度）
+    if (p.id !== 'flash') grandTotal += total;
+  });
+
+  const totalActiveDays = activeDays.size;
+  const dailyAvg = totalActiveDays > 0 ? Math.round(grandTotal / totalActiveDays) : 0;
+
+  // 解析闪卡内容：提取新词量（支持两种格式）
+  // 格式1 OCR直出："总词量:74 新词量:10"
+  // 格式2 存储格式："12新63旧"
+  let flashNewWords = 0;
+  week.days.forEach(d => {
+    const content = d.projects.flash.content;
+    if (!content) return;
+    // 先尝试OCR格式：新词量:数字
+    const nwMatch = content.match(/新词量[：:\s]*(\d+)/);
+    if (nwMatch) {
+      flashNewWords += parseInt(nwMatch[1]);
+    } else {
+      // 再尝试存储格式：N新M旧
+      const newMatch = content.match(/(\d+)新/);
+      if (newMatch) flashNewWords += parseInt(newMatch[1]);
+    }
+  });
+
+  // 构建叙述段落：一周7天，平均每天磨耳朵时间是X小时，平均磨眼睛一天是X分钟...
+  const timeProjectLabels = {
+    eye: '磨眼睛', ear: '磨耳朵', read: '指读', dessert: '甜点', quiz: '泛读Quiz',
+    write: '书写练习'
+  };
+  const sentenceParts = [];
+
+  // 有时间的项目：按顺序描述平均每天时长
+  const timeProjectOrder = ['ear','eye','read','dessert','quiz','write'];
+  timeProjectOrder.forEach(pid => {
+    const p = PROJECTS.find(x => x.id === pid);
+    if (!p || !p.hasTime) return;
+    const s = stats[pid];
+    if (s.days === 0) return;
+    const avgMin = Math.round(s.total / s.days);
+    // 大于等于60分钟用"小时"，否则用"分钟"
+    if (avgMin >= 60) {
+      const h = (avgMin / 60).toFixed(1);
+      sentenceParts.push(`平均每天<span class="hl">${p.name}</span>时间是<span class="hl">${h}小时</span>`);
+    } else {
+      sentenceParts.push(`平均<span class="hl">${p.name}</span>一天是<span class="hl">${avgMin}分钟</span>`);
+    }
+  });
+
+  // 闪卡：本周新增词量
+  if (flashNewWords > 0) {
+    sentenceParts.push(`<span class="hl">闪卡</span>本周新增<span class="hl">${flashNewWords}个</span>词`);
+  }
+
+  // 外教课次数
+  const tutorCount = week.days.filter(d => d.projects.tutor && d.projects.tutor.content).length;
+  if (tutorCount > 0) {
+    sentenceParts.push(`<span class="hl">外教</span><span class="hl">${tutorCount}节</span>课`);
+  }
+
+  // 激励语
+  let motivation = '';
+  if (grandTotal === 0 && totalActiveDays === 0) {
+    motivation = '📭 本周还没有训练记录，快去打卡吧！';
+  } else if (totalActiveDays >= 5) {
+    motivation = '✅ 学习频率不错，继续保持！';
+  } else if (totalActiveDays >= 3) {
+    motivation = '💪 还可以再加把劲，争取每天都学一点！';
+  } else {
+    motivation = '🌱 刚起步，慢慢来，贵在坚持！';
+  }
+
+  const hourTotal = (grandTotal / 60).toFixed(1);
+  const hTotalStr = grandTotal >= 60 ? ` · ${hourTotal}小时` : '';
+
+  container.innerHTML = `
+    <div class="week-summary-title">📊 ${week.name} 训练总结</div>
+    <div class="week-summary-overview">
+      <div class="sov-item">
+        <div class="sov-value">${grandTotal}<small>min${hTotalStr}</small></div>
+        <div class="sov-label">总学习时长</div>
+      </div>
+      <div class="sov-item">
+        <div class="sov-value">${totalActiveDays}<small>天 / 7天</small></div>
+        <div class="sov-label">活跃天数</div>
+      </div>
+      <div class="sov-item">
+        <div class="sov-value">${dailyAvg}<small>min/天</small></div>
+        <div class="sov-label">日均时长</div>
+      </div>
+    </div>
+    <div class="week-summary-detail">
+      <div class="wsd-title">📝 一周7天总结</div>
+      <div class="wsd-text">一周7天，${sentenceParts.join('，')}。<br><span class="motivation">${motivation}</span></div>
+    </div>
+  `;
 }
 
 function renderNotesArea() {
@@ -2269,6 +2531,7 @@ const CHART_COLORS = {
   eye:  { bg: 'rgba(99,102,241,0.85)',  border: '#6366f1',  gradient: ['#6366f1', '#818cf8'] },
   ear:  { bg: 'rgba(236,72,153,0.85)',  border: '#ec4899',  gradient: ['#ec4899', '#fbcfe8'] },
   total:{ bg: 'rgba(14,165,233,0.85)',   border: '#0ea5e9',  gradient: ['#0ea5e9', '#7dd3fc'] },
+  summary:{ bg: 'rgba(139,92,246,0.75)', border: '#8b5cf6', gradient: ['#8b5cf6', '#c4b5fd'] },
 };
 
 function getBarGradient(ctx, colorKey) {
@@ -2314,6 +2577,7 @@ function renderCharts() {
   renderBarChart('earChart', earTimes, DAY_NAMES, 'ear');
   renderPieChart('pieChart', PROJECTS.map(p => p.name), projectTotals);
   renderBarChart('totalChart', dailyTotals, DAY_NAMES, 'total');
+  renderSummaryRadar(week);
 }
 
 function renderSummary(containerId, total, avg) {
@@ -2495,6 +2759,147 @@ function renderPieChart(canvasId, labels, data) {
               const pct = total > 0 ? ((ctx.parsed / total) * 100).toFixed(1) : 0;
               return ` ${ctx.label}: ${ctx.parsed}min (${pct}%)`;
             }
+          }
+        }
+      }
+    }
+  });
+}
+
+// 训练总结雷达图 — 多维度展示本周训练全貌
+function renderSummaryRadar(week) {
+  const canvas = document.getElementById('summaryChart');
+  if (!canvas) return;
+
+  if (charts['summaryChart']) charts['summaryChart'].destroy();
+
+  // 收集各维度数据
+  const timeProjectIds = ['ear', 'eye', 'read', 'dessert', 'quiz', 'write'];
+  const labels = [];
+  const data = [];
+
+  timeProjectIds.forEach(pid => {
+    const p = PROJECTS.find(x => x.id === pid);
+    if (p) {
+      const total = week.days.reduce((sum, d) => sum + d.projects[pid].time, 0);
+      labels.push(p.name);
+      // 雷达图用分钟数，归一化到0-100区间便于展示
+      data.push(total);
+    }
+  });
+
+  // 闪卡新词
+  let flashNewWords = 0;
+  week.days.forEach(d => {
+    const content = d.projects.flash.content;
+    if (!content) return;
+    const nwMatch = content.match(/新词量[：:\s]*(\d+)/);
+    if (nwMatch) {
+      flashNewWords += parseInt(nwMatch[1]);
+    } else {
+      const newMatch = content.match(/(\d+)新/);
+      if (newMatch) flashNewWords += parseInt(newMatch[1]);
+    }
+  });
+  labels.push('闪卡新词');
+  data.push(flashNewWords);
+
+  // 外教课次
+  const tutorCount = week.days.filter(d => d.projects.tutor && d.projects.tutor.content).length;
+  labels.push('外教课');
+  data.push(tutorCount);
+
+  // 活跃天数
+  let activeDays = 0;
+  week.days.forEach(d => {
+    const hasAny = Object.values(d.projects).some(v => v.content || v.time > 0);
+    if (hasAny) activeDays++;
+  });
+  labels.push('活跃天数');
+  data.push(activeDays);
+
+  // 更新摘要区
+  const summaryEl = document.getElementById('summaryChartSummary');
+  if (summaryEl) {
+    const grandTotal = timeProjectIds.reduce((sum, pid) =>
+      sum + week.days.reduce((s, d) => s + d.projects[pid].time, 0), 0);
+    const hTotal = grandTotal >= 60 ? (grandTotal / 60).toFixed(1) + 'h' : grandTotal + 'min';
+    summaryEl.innerHTML = `
+      <div class="chart-summary-item">
+        <div class="cs-label">总时长</div>
+        <div class="cs-value">${hTotal}</div>
+      </div>
+      <div class="chart-summary-item">
+        <div class="cs-label">活跃</div>
+        <div class="cs-value">${activeDays}<small>天</small></div>
+      </div>
+      <div class="chart-summary-item">
+        <div class="cs-label">闪卡新增</div>
+        <div class="cs-value">${flashNewWords}<small>词</small></div>
+      </div>
+    `;
+  }
+
+  const ctx = canvas.getContext('2d');
+
+  // 找出最大值用于归一化显示
+  const maxVal = Math.max(...data.filter(v => v > 0), 1);
+
+  charts['summaryChart'] = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '本周数据',
+        data: data,
+        backgroundColor: 'rgba(139,92,246,0.2)',
+        borderColor: '#8b5cf6',
+        borderWidth: 2,
+        pointBackgroundColor: '#8b5cf6',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 900, easing: 'easeOutQuart' },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(139,92,246,0.9)',
+          titleColor: '#fff',
+          bodyColor: '#fff',
+          cornerRadius: 10,
+          padding: 10,
+          callbacks: {
+            label: (ctx) => {
+              const idx = ctx.dataIndex;
+              const val = ctx.parsed.r;
+              const unit = idx === labels.length - 1 ? '天' :
+                           idx === labels.length - 2 ? '节' :
+                           idx === labels.length - 3 ? '个词' : ' 分钟';
+              return ` ${ctx.label}: ${val}${unit}`;
+            }
+          }
+        }
+      },
+      scales: {
+        r: {
+          beginAtZero: true,
+          suggestedMax: maxVal,
+          grid: { color: 'rgba(139,92,246,0.12)' },
+          angleLines: { color: 'rgba(139,92,246,0.12)' },
+          pointLabels: {
+            color: '#4b5563',
+            font: { size: 11, weight: '500' },
+            padding: 8
+          },
+          ticks: {
+            display: false,
+            stepSize: Math.ceil(maxVal / 4)
           }
         }
       }
